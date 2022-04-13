@@ -7,36 +7,27 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'Zoo'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of Zoo.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  s.name                    = 'Zoo'
+  s.version                 = '1.0.0'
+  s.summary                 = 'A development tools for developer'
+  s.description             = <<-DESC
+  A utils for developer
                        DESC
+  s.homepage                = 'https://github.com/lzackx/Zoo'
+  s.license                 = { :type => 'MIT', :file => 'LICENSE' }
+  s.author                  = { 'lzackx' => 'lzackx@lzackx.com' }
+  s.source                  = { :git => 'https://github.com/lzackx/Zoo.git', :tag => s.version.to_s }
+  s.ios.deployment_target   = '9.0'
+  s.default_subspec         = 'Core'
 
-  s.homepage         = 'https://github.com/lzackx/Zoo'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'lzackx' => 'lzackx@lzackx.com' }
-  s.source           = { :git => 'https://github.com/lzackx/Zoo.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.subspec 'Core' do |ss|
+    ss.source_files         = 'Zoo/Classes/Core/**/*.{h,m,c,mm}'
+    ss.resource_bundles     = {
+      'Zoo' => 'Zoo/Assets/**/*'
+    }
+  end
 
-  s.ios.deployment_target = '9.0'
+#  s.subspec 'All' do |ss|
+#  end
 
-  s.source_files = 'Zoo/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'Zoo' => ['Zoo/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end

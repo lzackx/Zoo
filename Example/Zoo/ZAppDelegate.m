@@ -2,17 +2,19 @@
 //  ZAppDelegate.m
 //  Zoo
 //
-//  Created by lzackx on 04/12/2022.
+//  Created by lZackx on 04/12/2022 
 //  Copyright (c) 2022 lzackx. All rights reserved.
 //
 
 #import "ZAppDelegate.h"
+#import <Zoo/Zoo.h>
 
 @implementation ZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [[ZooManager shareInstance] install];
     return YES;
 }
 
