@@ -2,7 +2,7 @@
 //  ZooNetworkInterceptor.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooNetworkInterceptor.h"
@@ -57,7 +57,7 @@ static ZooNetworkInterceptor *instance = nil;
         if (delegate.shouldIntercept) {
             shouldIntercept = YES;
 //            if (shouldIntercept) {
-//                ZooLog(@"yixiang shouldIntercept from %@",[delegate class]);
+//                ZooLog(@"shouldIntercept from %@",[delegate class]);
 //            }
         }
     }

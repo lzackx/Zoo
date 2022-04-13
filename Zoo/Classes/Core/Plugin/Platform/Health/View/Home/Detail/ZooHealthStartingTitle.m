@@ -1,8 +1,8 @@
 //
 //  ZooHealthStartingTitle.m
-//  ZooKit
+//  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooHealthStartingTitle.h"
@@ -19,8 +19,8 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        _title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-        _title.textColor = [UIColor blackColor];
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.zoo_width, self.zoo_height)];
+        _title.textColor = [UIColor zoo_colorWithString:@"#27BCB7"];
         _title.font = [UIFont systemFontOfSize:kZooSizeFrom750_Landscape(28)];
         _title.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_title];

@@ -2,7 +2,7 @@
 //  ZooManager.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 #import <UIKit/UIKit.h>
 #import "ZooManager.h"
@@ -21,6 +21,7 @@
 #import "ZooHomeWindow.h"
 #import "ZooANRManager.h"
 #import "ZooLargeImageDetectionManager.h"
+#import "ZooMockManager.h"
 #import "ZooNetFlowOscillogramWindow.h"
 #import "ZooNetFlowManager.h"
 #import "ZooHealthManager.h"
@@ -36,13 +37,11 @@
 #import "ZooCocoaLumberjackListViewController.h"
 #endif
 
-
 #define kTitle        @"title"
 #define kDesc         @"desc"
 #define kIcon         @"icon"
 #define kPluginName   @"pluginName"
 #define kAtModule     @"atModule"
-#define kBuriedPoint  @"buriedPoint"
 
 @implementation ZooManagerPluginTypeModel
 
@@ -125,7 +124,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
         }
     }
 
-    [self initData];
     customBlock();
 
     [self initEntry:self.startingPosition];
@@ -180,9 +178,15 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     }
     
     //拉取最新的mock数据
-//    [[ZooMockManager sharedInstance] queryMockData:^(int flag) {
-//        ZooLog(@"mock get data, flag == %i",flag);
-//    }];
+    [[ZooMockManager sharedInstance] queryMockData:^(int flag) {
+        ZooLog(@"mock get data, flag == %i",flag);
+    }];
+    
+    //Weex工具的初始化
+#if ZooWithWeex
+    [ZooWeexLogDataSource shareInstance];
+    [ZooWeexInfoDataManager shareInstance];
+#endif
     
     //开启健康体检
     if ([[ZooCacheManager sharedInstance] healthStart]) {
@@ -191,11 +195,12 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     
 }
 
+#pragma mark - 常用工具
+- (void)addGeneralPlugins {
 
-/**
- 初始化内置工具数据
- */
-- (void)initData{
+    [self addPluginWithPluginType:ZooManagerPluginType_ZooMockPlugin];
+    [self addPluginWithPluginType:ZooManagerPluginType_ZooHealthPlugin];
+    
     #pragma mark - 常用工具
     [self addPluginWithPluginType:ZooManagerPluginType_ZooAppSettingPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooAppInfoPlugin];
@@ -217,7 +222,10 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     [self addPluginWithPluginType:ZooManagerPluginType_ZooDatabasePlugin];
 #endif
     
-    #pragma mark - 性能检测
+}
+
+#pragma mark - 性能检测
+- (void)addPerformancePlugins {
     [self addPluginWithPluginType:ZooManagerPluginType_ZooFPSPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooCPUPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooMemoryPlugin];
@@ -236,15 +244,17 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
 #if ZooWithMLeaksFinder
     [self addPluginWithPluginType:ZooManagerPluginType_ZooMemoryLeakPlugin];
 #endif
-    
-    #pragma mark - 视觉工具
+}
+
+#pragma mark - 视觉工具
+- (void)addUIPlugins {
     [self addPluginWithPluginType:ZooManagerPluginType_ZooColorPickPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooViewCheckPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooViewAlignPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooViewMetricsPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooHierarchyPlugin];
-    
 }
+
 
 /**
  初始化工具入口
@@ -267,15 +277,11 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
 - (void)addPluginWithPluginType:(ZooManagerPluginType)pluginType
 {
     ZooManagerPluginTypeModel *model = [self getDefaultPluginDataWithPluginType:pluginType];
-    [self addPluginWithTitle:model.title icon:model.icon desc:model.desc pluginName:model.pluginName atModule:model.atModule buriedPoint:model.buriedPoint];
+    [self addPluginWithTitle:model.title icon:model.icon desc:model.desc pluginName:model.pluginName atModule:model.atModule];
 }
 
 // out 1
 - (void)addPluginWithTitle:(NSString *)title icon:(NSString *)iconName desc:(NSString *)desc pluginName:(NSString *)entryName atModule:(NSString *)moduleName{
-    [self addPluginWithTitle:title icon:iconName desc:desc pluginName:entryName atModule:moduleName buriedPoint:@"zoo_sdk_business_ck"];
-}
-
-- (void)addPluginWithTitle:(NSString *)title icon:(NSString *)iconName desc:(NSString *)desc pluginName:(NSString *)entryName atModule:(NSString *)moduleName buriedPoint:(NSString *)buriedPoint{
     
     NSMutableDictionary *pluginDic = [self foundGroupWithModule:moduleName];
     pluginDic[@"key"] = [NSString stringWithFormat:@"%@-%@-%@-%@",moduleName,title,iconName,desc];
@@ -283,7 +289,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     pluginDic[@"icon"] = iconName;
     pluginDic[@"desc"] = desc;
     pluginDic[@"pluginName"] = entryName;
-    pluginDic[@"buriedPoint"] = buriedPoint;
     pluginDic[@"show"] = @1;
 }
 
@@ -297,7 +302,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     pluginDic[@"desc"] = desc;
     pluginDic[@"pluginName"] = entryName;
     [_keyBlockDic setValue:[handleBlock copy] forKey:pluginDic[@"key"]];
-    pluginDic[@"buriedPoint"] = @"zoo_sdk_business_ck";
     pluginDic[@"show"] = @1;
 
 }
@@ -312,7 +316,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     if (handleBlock) {
         [_keyBlockDic setValue:[handleBlock copy] forKey:pluginDic[@"key"]];
     }
-    pluginDic[@"buriedPoint"] = @"zoo_sdk_business_ck";
     pluginDic[@"show"] = @1;
 }
 
@@ -400,7 +403,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
      }
 }
 
-
 - (void)addH5DoorBlock:(void(^)(NSString *h5Url))block{
     self.h5DoorBlock = block;
 }
@@ -430,80 +432,70 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
                                    @{kDesc:ZooLocalizedString(@"应用设置")},
                                    @{kIcon:@"zoo_setting"},
                                    @{kPluginName:@"ZooAppSettingPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_setting"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                     ],
                            @(ZooManagerPluginType_ZooAppInfoPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"App信息")},
                                    @{kDesc:ZooLocalizedString(@"App信息")},
                                    @{kIcon:@"zoo_app_info"},
                                    @{kPluginName:@"ZooAppInfoPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_appinfo"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooSandboxPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"沙盒浏览器")},
                                    @{kDesc:ZooLocalizedString(@"沙盒浏览器")},
                                    @{kIcon:@"zoo_file"},
                                    @{kPluginName:@"ZooSandboxPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_sandbox"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooGPSPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"Mock GPS")},
                                    @{kDesc:ZooLocalizedString(@"Mock GPS")},
                                    @{kIcon:@"zoo_mock_gps"},
                                    @{kPluginName:@"ZooGPSPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_gps"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooH5Plugin) : @[
                                    @{kTitle:ZooLocalizedString(@"H5任意门")},
                                    @{kDesc:ZooLocalizedString(@"H5任意门")},
                                    @{kIcon:@"zoo_h5"},
                                    @{kPluginName:@"ZooH5Plugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_h5"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooDeleteLocalDataPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"清理缓存")},
                                    @{kDesc:ZooLocalizedString(@"清理缓存")},
                                    @{kIcon:@"zoo_qingchu"},
                                    @{kPluginName:@"ZooDeleteLocalDataPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_cache"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooNSLogPlugin) : @[
                                    @{kTitle:@"NSLog"},
                                    @{kDesc:@"NSLog"},
                                    @{kIcon:@"zoo_nslog"},
                                    @{kPluginName:@"ZooNSLogPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_log"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooCocoaLumberjackPlugin) : @[
                                    @{kTitle:@"Lumberjack"},
                                    @{kDesc:ZooLocalizedString(@"Lumberjack")},
                                    @{kIcon:@"zoo_log"},
                                    @{kPluginName:@"ZooCocoaLumberjackPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_lumberjack"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooDatabasePlugin) : @[
                                    @{kTitle:@"DBView"},
                                    @{kDesc:ZooLocalizedString(@"数据库预览")},
                                    @{kIcon:@"zoo_database"},
                                    @{kPluginName:@"ZooDatabasePlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_dbview"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooNSUserDefaultsPlugin) : @[
                                    @{kTitle:@"UserDefaults"},
                                    @{kDesc:@"UserDefaults"},
                                    @{kIcon:@"zoo_database"},
                                    @{kPluginName:@"ZooNSUserDefaultsPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"常用工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_userdefault"}
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
                            ],
                            
                            // 性能检测
@@ -512,64 +504,56 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
                                    @{kDesc:ZooLocalizedString(@"帧率")},
                                    @{kIcon:@"zoo_fps"},
                                    @{kPluginName:@"ZooFPSPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_fps"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooCPUPlugin) : @[
                                    @{kTitle:@"CPU"},
                                    @{kDesc:ZooLocalizedString(@"CPU")},
                                    @{kIcon:@"zoo_cpu"},
                                    @{kPluginName:@"ZooCPUPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_cpu"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooMemoryPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"内存")},
                                    @{kDesc:ZooLocalizedString(@"内存")},
                                    @{kIcon:@"zoo_memory"},
                                    @{kPluginName:@"ZooMemoryPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_arm"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooNetFlowPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"网络")},
                                    @{kDesc:ZooLocalizedString(@"网络监控")},
                                    @{kIcon:@"zoo_net"},
                                    @{kPluginName:@"ZooNetFlowPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_network"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooCrashPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"Crash")},
                                    @{kDesc:ZooLocalizedString(@"Crash")},
                                    @{kIcon:@"zoo_crash"},
                                    @{kPluginName:@"ZooCrashPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_crash"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooSubThreadUICheckPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"子线程UI")},
                                    @{kDesc:ZooLocalizedString(@"子线程UI")},
                                    @{kIcon:@"zoo_ui"},
                                    @{kPluginName:@"ZooSubThreadUICheckPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_comm_ck_child_thread"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooANRPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"卡顿")},
                                    @{kDesc:ZooLocalizedString(@"卡顿")},
                                    @{kIcon:@"zoo_kadun"},
                                    @{kPluginName:@"ZooANRPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_block"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooMethodUseTimePlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"Load耗时")},
                                    @{kDesc:ZooLocalizedString(@"Load耗时")},
                                    @{kIcon:@"zoo_method_use_time"},
                                    @{kPluginName:@"ZooMethodUseTimePlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_load"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            
                            @(ZooManagerPluginType_ZooLargeImageFilter) : @[
@@ -577,48 +561,42 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
                                    @{kDesc:ZooLocalizedString(@"大图检测")},
                                    @{kIcon:@"zoo_net"},
                                    @{kPluginName:@"ZooLargeImagePlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_img"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooStartTimePlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"启动耗时")},
                                    @{kDesc:ZooLocalizedString(@"启动耗时")},
                                    @{kIcon:@"zoo_app_start_time"},
                                    @{kPluginName:@"ZooStartTimePlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_appstart_coast"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooMemoryLeakPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"内存泄漏")},
                                    @{kDesc:ZooLocalizedString(@"内存泄漏统计")},
                                    @{kIcon:@"zoo_memory_leak"},
                                    @{kPluginName:@"ZooMLeaksFinderPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_leak"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooUIProfilePlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"UI层级")},
                                    @{kDesc:ZooLocalizedString(@"UI层级s")},
                                    @{kIcon:@"zoo_view_level"},
                                    @{kPluginName:@"ZooUIProfilePlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_ui_ck_hierarchy"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                            ],
                            @(ZooManagerPluginType_ZooTimeProfilePlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"函数耗时")},
                                    @{kDesc:ZooLocalizedString(@"函数耗时统计")},
                                    @{kIcon:@"zoo_time_profiler"},
                                    @{kPluginName:@"ZooTimeProfilerPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                   @{kBuriedPoint:@"zoo_sdk_performance_ck_method_coast"}
+                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
                            ],
                            @(ZooManagerPluginType_ZooWeakNetworkPlugin) : @[
                                      @{kTitle:ZooLocalizedString(@"模拟弱网")},
                                      @{kDesc:ZooLocalizedString(@"模拟弱网测试")},
                                      @{kIcon:@"zoo_weaknet"},
                                      @{kPluginName:@"ZooWeakNetworkPlugin"},
-                                     @{kAtModule:ZooLocalizedString(@"性能检测")},
-                                     @{kBuriedPoint:@"zoo_sdk_comm_ck_weaknetwork"}
+                                     @{kAtModule:ZooLocalizedString(@"性能检测")}
                              ],
                            // 视觉工具
                            @(ZooManagerPluginType_ZooColorPickPlugin) : @[
@@ -626,41 +604,51 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
                                    @{kDesc:ZooLocalizedString(@"取色器")},
                                    @{kIcon:@"zoo_straw"},
                                    @{kPluginName:@"ZooColorPickPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"视觉工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_ui_ck_color_pick"}
+                                   @{kAtModule:ZooLocalizedString(@"视觉工具")}
                                    ],
                            @(ZooManagerPluginType_ZooViewCheckPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"组件检查")},
                                    @{kDesc:ZooLocalizedString(@"组件检查")},
                                    @{kIcon:@"zoo_view_check"},
                                    @{kPluginName:@"ZooViewCheckPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"视觉工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_ui_ck_widget"}
+                                   @{kAtModule:ZooLocalizedString(@"视觉工具")}
                                    ],
                            @(ZooManagerPluginType_ZooViewAlignPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"对齐标尺")},
                                    @{kDesc:ZooLocalizedString(@"对齐标尺")},
                                    @{kIcon:@"zoo_align"},
                                    @{kPluginName:@"ZooViewAlignPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"视觉工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_ui_ck_aligin_scaleplate"}
+                                   @{kAtModule:ZooLocalizedString(@"视觉工具")}
                                    ],
                            @(ZooManagerPluginType_ZooViewMetricsPlugin) : @[
                                    @{kTitle:ZooLocalizedString(@"布局边框")},
                                    @{kDesc:ZooLocalizedString(@"布局边框")},
                                    @{kIcon:@"zoo_viewmetrics"},
                                    @{kPluginName:@"ZooViewMetricsPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"视觉工具")},
-                                   @{kBuriedPoint:@"zoo_sdk_ui_ck_border"}
+                                   @{kAtModule:ZooLocalizedString(@"视觉工具")}
                                    ],
                           @(ZooManagerPluginType_ZooHierarchyPlugin) : @[
                                            @{kTitle:ZooLocalizedString(@"UI结构")},
                                            @{kDesc:ZooLocalizedString(@"显示UI结构")},
                                            @{kIcon:@"zoo_view_level"},
                                            @{kPluginName:@"ZooHierarchyPlugin"},
-                                           @{kAtModule:ZooLocalizedString(@"视觉工具")},
-                                           @{kBuriedPoint:@"zoo_sdk_ui_ck_widget_3d"}
+                                           @{kAtModule:ZooLocalizedString(@"视觉工具")}
                                    ],
+                           // 聚合工具
+                           @(ZooManagerPluginType_ZooMockPlugin) : @[
+                                @{kTitle:ZooLocalizedString(@"Mock数据")},
+                                   @{kDesc:ZooLocalizedString(@"Mock数据")},
+                                   @{kIcon:@"zoo_mock"},
+                                   @{kPluginName:@"ZooMockPlugin"},
+                                   @{kAtModule:ZooLocalizedString(@"聚合工具")}
+                                   ],
+                           @(ZooManagerPluginType_ZooHealthPlugin) : @[
+                               @{kTitle:ZooLocalizedString(@"健康体检")},
+                                  @{kDesc:ZooLocalizedString(@"健康体检中心")},
+                                  @{kIcon:@"zoo_health"},
+                                  @{kPluginName:@"ZooHealthPlugin"},
+                                  @{kAtModule:ZooLocalizedString(@"聚合工具")}
+                                  ]
                            }[@(pluginType)];
     
     ZooManagerPluginTypeModel *model = [ZooManagerPluginTypeModel new];
@@ -669,7 +657,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     model.icon = dataArray[2][kIcon];
     model.pluginName = dataArray[3][kPluginName];
     model.atModule = dataArray[4][kAtModule];
-    model.buriedPoint = dataArray[5][kBuriedPoint];
     
     return model;
 }

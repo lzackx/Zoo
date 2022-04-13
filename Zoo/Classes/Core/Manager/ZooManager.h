@@ -2,7 +2,7 @@
 //  ZooManager.h
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import <Foundation/Foundation.h>
@@ -14,6 +14,15 @@ typedef void (^ZooH5DoorBlock)(NSString *);
 typedef UIImage * _Nullable (^ZooWebpHandleBlock)(NSString *filePath);
 
 typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
+    #pragma mark - weex专项工具
+    // 日志
+    ZooManagerPluginType_ZooWeexLogPlugin,
+    // 缓存
+    ZooManagerPluginType_ZooWeexStoragePlugin,
+    // 信息
+    ZooManagerPluginType_ZooWeexInfoPlugin,
+    // DevTool
+    ZooManagerPluginType_ZooWeexDevToolPlugin,
     #pragma mark - 常用工具
     // App设置
     ZooManagerPluginType_ZooAppSettingPlugin,
@@ -78,6 +87,10 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
     // 元素边框线
     ZooManagerPluginType_ZooViewMetricsPlugin,
     
+    #pragma mark - 聚合工具
+    // Mock 数据
+    ZooManagerPluginType_ZooMockPlugin,
+    ZooManagerPluginType_ZooHealthPlugin
 };
 
 @interface ZooManagerPluginTypeModel : NSObject
@@ -87,7 +100,6 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 @property(nonatomic, copy) NSString *icon;
 @property(nonatomic, copy) NSString *pluginName;
 @property(nonatomic, copy) NSString *atModule;
-@property(nonatomic, copy) NSString *buriedPoint;
 
 @end
 
@@ -95,7 +107,7 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 
 + (nonnull ZooManager *)shareInstance;
 
-@property (nonatomic, copy) NSString *mockDomain; //产品mockDomain 非必填 默认mock.zoo.cn
+@property (nonatomic, copy) NSString *mockDomain; //产品mockDomain 非必填
 
 @property (nonatomic, assign) BOOL autoDock; //zoo entry icon support autoDock，deffault yes
 
@@ -141,6 +153,12 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 - (void)hiddenZoo;
 
 - (void)hiddenHomeWindow;
+
+- (void)addGeneralPlugins;
+
+- (void)addPerformancePlugins;
+
+- (void)addUIPlugins;
 
 @property (nonatomic, assign) int64_t bigImageDetectionSize; // 外部设置大图检测的监控数值  比如监控所有图片大于50K的图片 那么这个值就设置为 50 * 1024；
 

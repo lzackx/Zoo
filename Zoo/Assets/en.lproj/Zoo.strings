@@ -2,14 +2,14 @@
  Zoo.strings
  Pods
  
- Created by lZackx on 04/12/2022 
+ Created by lZackx on 04/12/2022
  
  */
 
 {
     //分组名称
     "业务工具"                                      = "Customize";
-    "平台工具"                                      = "Platform";
+    "聚合工具"                                      = "Platform";
     "常用工具"                                      = "Common";
     "性能检测"                                      = "Performance";
     "视觉工具"                                      = "UI";
@@ -55,7 +55,6 @@
     
     //文件同步助手
     "文件同步"                                 = "File Sync";
-    "需要到www.zoo.cn上注册pId才能使用该功能"    =  "You need to register the pId on \"www.zoo.cn\" to use this function";
     
     //应用设置
     "应用设置"                               = "App Settings";

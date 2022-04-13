@@ -1,6 +1,6 @@
 //
 //  ZooHealthManager.m
-//  ZooKit
+//  Zoo
 //
 //  Created by lZackx on 04/12/2022
 //
@@ -195,76 +195,57 @@
 }
 
 - (void)upLoadData{
-    if (self.caseName.length>0 && self.testPerson.length>0) {
-        NSString *testTime = [ZooUtil dateFormatNow];
-        NSString *phoneName = [ZooAppInfoUtil iphoneType];
-        NSString *phoneSystem = [[UIDevice currentDevice] systemVersion];
-        NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
-        NSString *appName = [ZooAppInfoUtil appName];
-        
-        
-        //启动流程
-        NSArray *loadArray = nil;
-        #if __has_include("ZooMethodUseTimeManager.h")
-        loadArray = [[ZooMethodUseTimeManager sharedInstance] fixLoadModelArrayForHealth];
-        #endif
-        
-        NSDictionary *appStart = @{
-            @"costTime" : @(self.startTime),
-            @"costDetail" : STRING_NOT_NULL(self.costDetail),
-            @"loadFunc" : loadArray ? loadArray : @[]
-        };
-        
-        //大文件扫描
-        NSString *homeDir = NSHomeDirectory();
-        ZooUtil *util = [[ZooUtil alloc] init];
-        [util getBigSizeFileFormPath:homeDir];
-        NSArray *bigFileInfoArray = [self formatInfoByPathArray:util.bigFileArray];
-        
-        NSDictionary *dic = @{
-            @"baseInfo":@{
-                    @"caseName":STRING_NOT_NULL(self.caseName),
-                    @"testPerson":STRING_NOT_NULL(self.testPerson),
-                    @"platform":@"iOS",
-                    @"time":testTime,
-                    @"phoneMode":phoneName,
-                    @"systemVersion":phoneSystem,
-                    @"appName":appName,
-                    @"appVersion":appVersion,
-                    @"dokitVersion":ZooVersion,
-            },
-            @"data":@{
-                    @"cpu":[_cpuArray copy],
-                    @"memory":[_memoryArray copy],
-                    @"fps":[_fpsArray copy],
-                    @"appStart":appStart,
-                    @"network": [_networkArray copy],
-                    @"block":[_blockArray copy],
-                    @"subThreadUI":[_subThreadUIArray copy],
-                    @"uiLevel":[_uiLevelArray copy],
-                    @"leak":[_leakArray copy],
-                    @"pageLoad":[_pageLoadArray copy],
-                    @"bigFile":[bigFileInfoArray copy]
-            }
-        };
-        
-        ZooLog(@"upload info == %@",dic);
-
-        [ZooNetworkUtil postWithUrlString:@"https://www.dokit.cn/healthCheck/addCheckData" params:dic success:^(NSDictionary * _Nonnull result) {
-            NSInteger code = [result[@"code"] integerValue];
-            if (code == 200) {
-                [ZooToastUtil showToastBlack:ZooLocalizedString(@"数据上传成功")  inView:[UIViewController rootViewControllerForZooHomeWindow].view];
-            }else{
-                NSString *msg = result[@"msg"];
-                if (msg) {
-                    [ZooToastUtil showToastBlack:msg inView:[UIViewController rootViewControllerForZooHomeWindow].view];
-                }
-            }
-
-        } error:^(NSError * _Nonnull error) {
-            [ZooToastUtil showToastBlack:ZooLocalizedString(@"数据上传失败")  inView:[UIViewController rootViewControllerForZooHomeWindow].view];
-        }];
-    }
+    NSString *testTime = [ZooUtil dateFormatNow];
+    NSString *phoneName = [ZooAppInfoUtil iphoneType];
+    NSString *phoneSystem = [[UIDevice currentDevice] systemVersion];
+    NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    NSString *appName = [ZooAppInfoUtil appName];
+    
+    
+    //启动流程
+    NSArray *loadArray = nil;
+#if __has_include("ZooMethodUseTimeManager.h")
+    loadArray = [[ZooMethodUseTimeManager sharedInstance] fixLoadModelArrayForHealth];
+#endif
+    
+    NSDictionary *appStart = @{
+        @"costTime" : @(self.startTime),
+        @"costDetail" : STRING_NOT_NULL(self.costDetail),
+        @"loadFunc" : loadArray ? loadArray : @[]
+    };
+    
+    //大文件扫描
+    NSString *homeDir = NSHomeDirectory();
+    ZooUtil *util = [[ZooUtil alloc] init];
+    [util getBigSizeFileFormPath:homeDir];
+    NSArray *bigFileInfoArray = [self formatInfoByPathArray:util.bigFileArray];
+    
+    NSDictionary *dic = @{
+        @"baseInfo":@{
+            @"platform":@"iOS",
+            @"time":testTime,
+            @"phoneMode":phoneName,
+            @"systemVersion":phoneSystem,
+            @"appName":appName,
+            @"appVersion":appVersion,
+            @"zooVersion":ZooVersion
+        },
+        @"data":@{
+            @"cpu":[_cpuArray copy],
+            @"memory":[_memoryArray copy],
+            @"fps":[_fpsArray copy],
+            @"appStart":appStart,
+            @"network": [_networkArray copy],
+            @"block":[_blockArray copy],
+            @"subThreadUI":[_subThreadUIArray copy],
+            @"uiLevel":[_uiLevelArray copy],
+            @"leak":[_leakArray copy],
+            @"pageLoad":[_pageLoadArray copy],
+            @"bigFile":[bigFileInfoArray copy]
+        }
+    };
+    
+    ZooLog(@"upload info == %@",dic);
     
     [_cpuPageArray removeAllObjects];
     [_memoryPageArray removeAllObjects];
@@ -293,7 +274,7 @@
     NSString *pageName = NSStringFromClass(vcClass);
     CGFloat beginTime = CACurrentMediaTime();
     [_pageEnterMap setValue:@(beginTime) forKey:pageName];
-    ZooLog(@"yixiang 开始进入页面 == %@ 时间 == %f",pageName,beginTime);
+    ZooLog(@"开始进入页面 == %@ 时间 == %f",pageName,beginTime);
     
 }
 
@@ -306,7 +287,7 @@
     }
     [[ZooHealthCountdownWindow shareInstance] start:10];
     NSString *pageName = NSStringFromClass(vcClass);
-    ZooLog(@"yixiang 已经进入页面 == %@",pageName);
+    ZooLog(@"已经进入页面 == %@",pageName);
     if (_pageEnterMap[pageName]) {
         CGFloat beginTime = [_pageEnterMap[pageName] floatValue];
         CGFloat endTime = CACurrentMediaTime();

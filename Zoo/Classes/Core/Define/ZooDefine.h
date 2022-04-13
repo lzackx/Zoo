@@ -2,7 +2,7 @@
 //  ZooDefine.h
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //  Copyright © 2017年 yixiang. All rights reserved.
 //
 
@@ -20,8 +20,6 @@
 
 #define ZooVersion @"1.0.0"
 #define ZooKbChange(x) x * 1000
-
-//#define Zoo_OpenLog
 
 #ifdef Zoo_OpenLog
 #define ZooLog(...) NSLog(@"ZooLog -> %s\n %@ \n\n",__func__,[NSString stringWithFormat:__VA_ARGS__]);

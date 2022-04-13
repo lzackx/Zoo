@@ -2,7 +2,7 @@
 //  ZooHomeHeadCell.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooHomeHeadCell.h"
@@ -57,8 +57,8 @@
         [_subTitleLabel removeFromSuperview];
         _subTitleLabel = nil;
     }
-    if (title && [title isEqualToString:ZooLocalizedString(@"平台工具")]) {
-        [self renderUIWithSubTitle:@"(www.zoo.cn)"];
+    if (title && [title isEqualToString:ZooLocalizedString(@"聚合工具")]) {
+        [self renderUIWithSubTitle:@"(Local)"];
     }
     [self setNeedsLayout];
 }

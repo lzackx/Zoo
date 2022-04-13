@@ -2,11 +2,12 @@
 //  NSURLSessionConfiguration+Zoo.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "NSURLSessionConfiguration+Zoo.h"
 #import "ZooNSURLProtocol.h"
+//#import "ZooMultiURLProtocol.h"
 #import "NSObject+Zoo.h"
 #import "ZooNetFlowManager.h"
 #import "ZooCacheManager.h"
@@ -35,6 +36,8 @@
     if ([self respondsToSelector:@selector(protocolClasses)]
         && [self respondsToSelector:@selector(setProtocolClasses:)]) {
         NSMutableArray * urlProtocolClasses = [NSMutableArray arrayWithArray: self.protocolClasses];
+        //ZooMultiURLProtocol
+//        Class protoCls = ZooMultiURLProtocol.class;
         Class protoCls = ZooNSURLProtocol.class;
         if (![urlProtocolClasses containsObject:protoCls]) {
             [urlProtocolClasses insertObject:protoCls atIndex:0];

@@ -1,8 +1,8 @@
 //
 //  ZooMockManager.m
-//  ZooKit
+//  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooMockManager.h"
@@ -58,79 +58,9 @@
 }
 
 - (void)queryMockData:(void(^)(int flag))block{
-//    NSString *pId = [ZooManager shareInstance].pId;
-//    NSString *mockDomain = [ZooManager shareInstance].mockDomain ? [ZooManager shareInstance].mockDomain : @"https://mock.dokit.cn/";
-//    if (pId && pId.length>0) {
-//        NSDictionary *params = @{
-//            @"projectId":pId,
-//            @"isfull":@"1",
-//            @"curPage":@"1",
-//            @"pageSize":@"500"
-//        };
-//        
-//        __weak typeof(self) weakSelf = self;
-//        NSString *mockInterfaceUrl = [mockDomain stringByAppendingString:@"api/app/interface"];
-//        [ZooNetworkUtil getWithUrlString:mockInterfaceUrl params:params success:^(NSDictionary * _Nonnull result) {
-//            NSArray *apis = result[@"data"][@"datalist"];
-//            NSMutableArray<ZooMockAPIModel *> *mockArray = [[NSMutableArray alloc] init];
-//            NSMutableArray<ZooMockUpLoadModel *> *uploadArray = [[NSMutableArray alloc] init];
-//            NSMutableArray *groups = [[NSMutableArray alloc] init];
-//            [groups addObject:@"所有"];
-//            for (NSDictionary *item in apis) {
-//                ZooMockAPIModel *mock = [[ZooMockAPIModel alloc] init];
-//                mock.apiId = item[@"_id"];
-//                mock.name = item[@"name"];
-//                mock.path = item[@"path"];
-//                mock.query = item[@"query"];
-//                mock.body = item[@"body"];
-//                //mock.body = @{@"bodyTitle":@"bodyName"};
-//                mock.category = item[@"categoryName"];
-//                mock.owner = item[@"owner"][@"name"];
-//                mock.editor = item[@"curStatus"][@"operator"][@"name"];
-//                NSArray *sceneList = item[@"sceneList"];
-//                NSMutableArray *sList = [[NSMutableArray alloc] init];
-//                for (NSDictionary *scene in sceneList) {
-//                    ZooMockScene *s = [[ZooMockScene alloc] init];
-//                    s.sceneId = scene[@"_id"];
-//                    s.name = scene[@"name"];
-//                    [sList addObject:s];
-//                }
-//                mock.sceneList = sList;
-//                
-//                [mockArray addObject:mock];
-//                
-//                
-//                ZooMockUpLoadModel *upload = [[ZooMockUpLoadModel alloc] init];
-//                upload.apiId = item[@"_id"];
-//                upload.name = item[@"name"];
-//                upload.path = item[@"path"];
-//                upload.query = item[@"query"];
-//                upload.body = item[@"body"];
-//                //upload.body = @{@"bodyTitle":@"bodyName"};
-//                upload.category = item[@"categoryName"];
-//                upload.owner = item[@"owner"][@"name"];
-//                upload.editor = item[@"curStatus"][@"operator"][@"name"];
-//                [uploadArray addObject:upload];
-//                
-//                NSString *category = item[@"categoryName"];
-//                if (groups && ![groups containsObject:category]) {
-//                    [groups addObject:category];
-//                }
-//            }
-//            weakSelf.mockArray = mockArray;
-//            weakSelf.upLoadArray = uploadArray;
-//            weakSelf.groups = groups;
-//            [self handleData];
-//            block(1);
-//        } error:^(NSError * _Nonnull error) {
-//            ZooLog(@"error == %@",error);
-//            block(2);
-//        }];
-//    }else{
-//        ZooLog(@"Request interface list must ensure that pId is not empty");
-//        block(3);
-//    }
-    
+    if ([ZooManager shareInstance].mockDomain == nil) {
+        return;
+    }
 }
 
 // 处理数据：合并网络数据和本地数据
@@ -162,7 +92,7 @@
     if (api) {
         mock = YES;
     }
-    ZooLog(@"yixiang mock = %d",mock);
+    ZooLog(@"mock = %d",mock);
     return mock;
 }
 
@@ -204,7 +134,7 @@
                 }
                 if (match) {
                     selectedApi = api;
-                    ZooLog(@"yixiang mock query match");
+                    ZooLog(@"mock query match");
                     break;
                 }
             }
@@ -223,7 +153,7 @@
                 }
                 if (match) {
                     selectedApi = api;
-                    ZooLog(@"yixiang mock body match");
+                    ZooLog(@"mock body match");
                     break;
                 }
             }
@@ -231,7 +161,7 @@
             if ((!api.query || api.query.allKeys.count==0) && (!api.body || api.body.allKeys.count==0)) {
                 //都没有匹配到的话，只匹配path
                 selectedApi = api;
-                ZooLog(@"yixiang mock path match");
+                ZooLog(@"mock path match");
                 break;
             }
         }
@@ -245,7 +175,7 @@
     if (api) {
         save = YES;
     }
-    ZooLog(@"yixiang save = %d api = %@ query = %@",save,api.path,api.query);
+    ZooLog(@"save = %d api = %@ query = %@",save,api.path,api.query);
     return save;
 }
 
@@ -329,30 +259,9 @@
 }
 
 - (void)uploadSaveData:(ZooMockUpLoadModel *)upload atView:(UIView *)view{
-//    NSString *apiId = upload.apiId;
-//    NSString *result = upload.result;
-//    NSString *projectId = [ZooManager shareInstance].pId;
-//    NSString *mockDomain = [ZooManager shareInstance].mockDomain ? [ZooManager shareInstance].mockDomain : @"https://mock.dokit.cn/";
-//    if (projectId && projectId.length > 0) {
-//        if (!result) {
-//            return;
-//        }
-//
-//        NSDictionary *params = @{
-//            @"projectId":projectId,
-//            @"id":apiId,
-//            @"tempData":result
-//        };
-//        NSString *mockInterfaceUrl = [mockDomain stringByAppendingString:@"api/app/interface"];
-//        [ZooNetworkUtil patchWithUrlString:mockInterfaceUrl params:params success:^(NSDictionary * _Nonnull result) {
-//            [self showToast:ZooLocalizedString(@"上传成功") atView:view];
-//        } error:^(NSError * _Nonnull error) {
-//            ZooLog(@"error == %@",error);
-//            [self showToast:ZooLocalizedString(@"上传失败") atView:view];
-//        }];
-//    }else{
-//        ZooLog(@"Upload template must has pid");
-//    }
+    if ([ZooManager shareInstance].mockDomain == nil) {
+        return;
+    }
 }
 
 - (void)showToast:(NSString *)toast atView:view{

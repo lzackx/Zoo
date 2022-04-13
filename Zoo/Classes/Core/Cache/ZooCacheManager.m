@@ -2,7 +2,7 @@
 //  ZooCacheManager.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooCacheManager.h"
@@ -31,7 +31,7 @@ static NSString * const kZooMemoryLeakAlertKey = @"zoo_memory_leak_alert_key";
 static NSString * const kZooAllTestKey = @"zoo_allTest_window_key";
 static NSString * const kZooMockCacheKey = @"zoo_mock_cache_key";
 static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
-#define kZooManagerKey [NSString stringWithFormat:@"%@_zoo_kit_manager_key",ZooVersion]
+#define kZooManagerKey [NSString stringWithFormat:@"%@_zoo_kit_manager_key", ZooVersion]
 
 @interface ZooCacheManager()
 
@@ -325,8 +325,7 @@ static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
         if (moduleName && ([moduleName isEqualToString:ZooLocalizedString(@"常用工具")] ||
                            [moduleName isEqualToString:ZooLocalizedString(@"性能检测")] ||
                            [moduleName isEqualToString:ZooLocalizedString(@"视觉工具")] ||
-                           [moduleName isEqualToString:ZooLocalizedString(@"平台工具")] ||
-                           [moduleName isEqualToString:@"Weex"])) {
+                           [moduleName isEqualToString:ZooLocalizedString(@"聚合工具")])) {
             NSArray *pluginArray = dic[@"pluginArray"];
             NSMutableArray *mutablepluginArray = [[NSMutableArray alloc] init];
             for (NSDictionary *subDic in pluginArray){
@@ -396,7 +395,7 @@ static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
             if (moduleName && ([moduleName isEqualToString:ZooLocalizedString(@"常用工具")] ||
                                [moduleName isEqualToString:ZooLocalizedString(@"性能检测")] ||
                                [moduleName isEqualToString:ZooLocalizedString(@"视觉工具")] ||
-                               [moduleName isEqualToString:ZooLocalizedString(@"平台工具")] ||
+                               [moduleName isEqualToString:ZooLocalizedString(@"聚合工具")] ||
                                [moduleName isEqualToString:@"Weex"])) {
                 continue;
             }
@@ -421,7 +420,7 @@ static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
             if (moduleName && ([moduleName isEqualToString:ZooLocalizedString(@"常用工具")] ||
                                [moduleName isEqualToString:ZooLocalizedString(@"性能检测")] ||
                                [moduleName isEqualToString:ZooLocalizedString(@"视觉工具")] ||
-                               [moduleName isEqualToString:ZooLocalizedString(@"平台工具")] ||
+                               [moduleName isEqualToString:ZooLocalizedString(@"聚合工具")] ||
                                [moduleName isEqualToString:@"Weex"])) {
                 [mutableDataArray addObject:dic];
                 continue;

@@ -1,0 +1,18 @@
+//
+//  ZooMockGPSCenterView.h
+//  DoraemonKit
+//
+//  Created by yixiang on 2018/12/2.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface ZooMockGPSCenterView : UIView
+
+- (void)renderUIWithGPS:(NSString *)gps;
+
+- (void)hiddenGPSInfo:(BOOL)hidden;
+
+@end
+

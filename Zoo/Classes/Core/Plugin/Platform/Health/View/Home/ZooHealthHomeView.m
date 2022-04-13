@@ -1,8 +1,8 @@
 //
 //  ZooHealthHomeView.m
-//  ZooKit
+//  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooHealthHomeView.h"
@@ -24,7 +24,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        _bgView = [[ZooHealthBgView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+        _bgView = [[ZooHealthBgView alloc] initWithFrame:CGRectMake(0, 0, self.zoo_width, self.zoo_height)];
         _startingTitle = [[ZooHealthStartingTitle alloc] initWithFrame:[_bgView getStartingTitleCGRect]];
         if ([ZooHealthManager sharedInstance].start) {
             [_startingTitle renderUIWithTitle:ZooLocalizedString(@"正在检测中...")];

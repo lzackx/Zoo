@@ -2,7 +2,7 @@
 //  ZooEntryWindow.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //  Copyright © 2017年 yixiang. All rights reserved.
 //
 
@@ -64,7 +64,7 @@
 
 - (instancetype)initWithStartPoint:(CGPoint)startingPosition{
     self.startingPosition = startingPosition;
-    _kEntryViewSize = 64;
+    _kEntryViewSize = 58;
     CGFloat x = self.startingPosition.x;
     CGFloat y = self.startingPosition.y;
     CGPoint defaultPosition = ZooStartingPosition;

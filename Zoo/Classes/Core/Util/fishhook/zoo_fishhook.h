@@ -2,7 +2,7 @@
 //  zoo_fishhook.h
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #ifndef zoo_fishhook_h
@@ -11,10 +11,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#if !defined(DORAEMON_FISHHOOK_EXPORT)
-#define DORAEMON_FISHHOOK_VISIBILITY __attribute__((visibility("hidden")))
+#if !defined(ZOO_FISHHOOK_EXPORT)
+#define ZOO_FISHHOOK_VISIBILITY __attribute__((visibility("hidden")))
 #else
-#define DORAEMON_FISHHOOK_VISIBILITY __attribute__((visibility("default")))
+#define ZOO_FISHHOOK_VISIBILITY __attribute__((visibility("default")))
 #endif
 
 #ifdef __cplusplus
@@ -39,14 +39,14 @@ struct zoo_rebinding {
  * rebind are added to the existing list of rebindingzoo_rebind_symbolsl
  * is rebound more than once, the later rebinding will take precedence.
  */
-DORAEMON_FISHHOOK_VISIBILITY
+ZOO_FISHHOOK_VISIBILITY
 int zoo_rebind_symbols(struct zoo_rebinding rebindings[], size_t rebindings_nel);
 
 /*
  * Rebinds as above, but only in the specified image. The header should point
  * to the mach-o header, the slide should be the slide offset. Others as above.
  */
-DORAEMON_FISHHOOK_VISIBILITY
+ZOO_FISHHOOK_VISIBILITY
 int zoo_rebind_symbols_image(void *header,
                          intptr_t slide,
                          struct zoo_rebinding rebindings[],

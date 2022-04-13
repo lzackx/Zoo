@@ -2,7 +2,7 @@
 //  ZooNSURLProtocol.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooNSURLProtocol.h"
@@ -78,8 +78,8 @@ static NSString * const kZooProtocolKey = @"zoo_protocol_key";
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request{
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
     [NSURLProtocol setProperty:@YES forKey:kZooProtocolKey inRequest:mutableReqeust];
-    if ([[ZooMockManager sharedInstance] needMock:request]) {
-        NSString *mockDomain = [ZooManager shareInstance].mockDomain ? [ZooManager shareInstance].mockDomain : @"https://mock.zoo.cn/";
+    if ([[ZooMockManager sharedInstance] needMock:request] && [ZooManager shareInstance].mockDomain) {
+        NSString *mockDomain = [ZooManager shareInstance].mockDomain;
         NSString *mockSceneUrl = [mockDomain stringByAppendingString:@"api/app/scene/%@"];
         NSString *sceneId = [[ZooMockManager sharedInstance] getSceneId:request];
         NSString *urlString = [NSString stringWithFormat:mockSceneUrl, sceneId];
@@ -95,12 +95,12 @@ static NSString * const kZooProtocolKey = @"zoo_protocol_key";
 
 - (void)handleFromSelect{
     if(ZooWeakNetwork_Delay == [[ZooNetworkInterceptor shareInstance].weakDelegate weakNetSelecte]){
-        ZooLog(@"yd Delay Net");//此处有dispatch_get_main_queue，无法使用switch
+        ZooLog(@"Delay Net");//此处有dispatch_get_main_queue，无法使用switch
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([[ZooNetworkInterceptor shareInstance].weakDelegate delayTime] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.task resume];
         });
     }else if(ZooWeakNetwork_WeakSpeed == [[ZooNetworkInterceptor shareInstance].weakDelegate weakNetSelecte]){
-        ZooLog(@"yd WeakUpFlow Net");
+        ZooLog(@"WeakUpFlow Net");
         [[ZooNetFlowManager shareInstance] httpBodyFromRequest:self.request bodyCallBack:^(NSData *body) {
             [[ZooNetworkInterceptor shareInstance].weakDelegate handleWeak:body isDown:NO];
             [self.task resume];
@@ -114,11 +114,11 @@ static NSString * const kZooProtocolKey = @"zoo_protocol_key";
     BOOL result = YES;
     if ([ZooNetworkInterceptor shareInstance].weakDelegate){
         if(ZooWeakNetwork_OutTime == [[ZooNetworkInterceptor shareInstance].weakDelegate weakNetSelecte]){
-            ZooLog(@"yd Outtime Net");
+            ZooLog(@"Outtime Net");
             [self.client URLProtocol:self didFailWithError:[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:NSURLErrorTimedOut userInfo:nil]];
             result = NO;
         }else if(ZooWeakNetwork_Break == [[ZooNetworkInterceptor shareInstance].weakDelegate weakNetSelecte]){
-            ZooLog(@"yd Break Net");
+            ZooLog(@"Break Net");
             [self.client URLProtocol:self didFailWithError:[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:NSURLErrorNotConnectedToInternet userInfo:nil]];
             result = NO;
         }
@@ -188,7 +188,7 @@ static NSString * const kZooProtocolKey = @"zoo_protocol_key";
     assert([NSThread currentThread] == self.clientThread);
     if ([ZooNetworkInterceptor shareInstance].weakDelegate) {
         if(ZooWeakNetwork_WeakSpeed == [[ZooNetworkInterceptor shareInstance].weakDelegate weakNetSelecte]){
-            ZooLog(@"yd WeakDownFlow Net");
+            ZooLog(@"WeakDownFlow Net");
             [[ZooNetworkInterceptor shareInstance].weakDelegate handleWeak:data isDown:YES];
         }
     }

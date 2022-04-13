@@ -2,7 +2,7 @@
 //  ZooSettingViewController.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooSettingViewController.h"
@@ -41,25 +41,23 @@
 
 - (void)loadData {
     NSString *dataString = @" \
-    { \
-        \"success\": true, \
-        \"data\": { \
-            \"group\": [ \
-                { \
-                    \"group\": \"本地功能\", \
-                    \"list\": [ \
-                        { \
-                            \"type\": \"native\", \
-                            \"name\": \"功能管理\", \
-                            \"desc\": \"介绍:可以针对内置工具列表进行自定义排序\", \
-                        } \
-                    ] \
-                } \
-            ] \
-        }, \
-        \"code\": 200 \
-    } \
-    ";
+        { \
+            \"data\": { \
+                \"group\": [ \
+                    { \
+                        \"group\": \"本地功能\", \
+                        \"list\": [ \
+                            { \
+                                \"type\": \"native\", \
+                                \"name\": \"功能管理\", \
+                                \"desc\": \"介绍:可以针对内置工具列表进行自定义排序\", \
+                            } \
+                        ] \
+                    } \
+                ] \
+            }, \
+        } \
+        ";
     NSData *data = [dataString dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *d = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     self.dataArr = [[d objectForKey:@"data"] objectForKey:@"group"];

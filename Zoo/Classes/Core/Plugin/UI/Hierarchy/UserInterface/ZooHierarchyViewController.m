@@ -2,27 +2,27 @@
 //  ZooHierarchyViewController.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 
 #import "ZooHierarchyViewController.h"
 #import "ZooHierarchyDetailViewController.h"
 #import "UIViewController+ZooHierarchy.h"
-#import "ZooHierarchyPickerView.h"
+#import "DKHierarchyPickerView.h"
 #import "NSObject+ZooHierarchy.h"
-#import "ZooHierarchyInfoView.h"
+#import "DKHierarchyInfoView.h"
 #import "ZooHierarchyHelper.h"
 #import "ZooHierarchyWindow.h"
 #import "UIView+Zoo.h"
 #import "ZooDefine.h"
 
-@interface ZooHierarchyViewController ()<ZooHierarchyViewDelegate, ZooHierarchyInfoViewDelegate>
+@interface ZooHierarchyViewController ()<DKHierarchyViewDelegate, DKHierarchyInfoViewDelegate>
 
 @property (nonatomic, strong) UIView *borderView;
 
-@property (nonatomic, strong) ZooHierarchyPickerView *pickerView;
+@property (nonatomic, strong) DKHierarchyPickerView *pickerView;
 
-@property (nonatomic, strong) ZooHierarchyInfoView *infoView;
+@property (nonatomic, strong) DKHierarchyInfoView *infoView;
 
 @property (nonatomic, strong) NSMutableSet *observeViews;
 
@@ -39,13 +39,13 @@
     self.borderViews = [[NSMutableDictionary alloc] init];
     
     CGFloat height = 100;
-    self.infoView = [[ZooHierarchyInfoView alloc] initWithFrame:CGRectMake(10, ZooScreenHeight - 10 * 2 - height, ZooScreenWidth - 10 * 2, height)];
+    self.infoView = [[DKHierarchyInfoView alloc] initWithFrame:CGRectMake(10, ZooScreenHeight - 10 * 2 - height, ZooScreenWidth - 10 * 2, height)];
     self.infoView.delegate = self;
     [self.view addSubview:self.infoView];
     
     [self.view addSubview:self.borderView];
     
-    self.pickerView = [[ZooHierarchyPickerView alloc] initWithFrame:CGRectMake((self.view.zoo_width - 60) / 2.0, (self.view.zoo_height - 60) / 2.0, 60, 60)];
+    self.pickerView = [[DKHierarchyPickerView alloc] initWithFrame:CGRectMake((self.view.zoo_width - 60) / 2.0, (self.view.zoo_height - 60) / 2.0, 60, 60)];
     self.pickerView.delegate = self;
     [self.view addSubview:self.pickerView];
 }
@@ -151,7 +151,7 @@
 }
 
 #pragma mark - LLHierarchyPickerViewDelegate
-- (void)hierarchyView:(ZooHierarchyPickerView *)view didMoveTo:(NSArray <UIView *>*)selectedViews {
+- (void)hierarchyView:(DKHierarchyPickerView *)view didMoveTo:(NSArray <UIView *>*)selectedViews {
     
     @synchronized (self) {
         for (UIView *view in self.observeViews) {
@@ -174,28 +174,28 @@
 }
 
 #pragma mark - ZooHierarchyInfoViewDelegate
-- (void)hierarchyInfoView:(ZooHierarchyInfoView *)view didSelectAt:(ZooHierarchyInfoViewAction)action {
+- (void)hierarchyInfoView:(DKHierarchyInfoView *)view didSelectAt:(DKHierarchyInfoViewAction)action {
     UIView *selectView = self.infoView.selectedView;
     if (selectView == nil) {
         return;
     }
     switch (action) {
-        case ZooHierarchyInfoViewActionShowMoreInfo:{
+        case DKHierarchyInfoViewActionShowMoreInfo:{
             [self showHierarchyInfo:selectView];
         }
             break;
-        case ZooHierarchyInfoViewActionShowParent: {
+        case DKHierarchyInfoViewActionShowParent: {
             [self showParentSheet:selectView];
         }
             break;
-        case ZooHierarchyInfoViewActionShowSubview: {
+        case DKHierarchyInfoViewActionShowSubview: {
             [self showSubviewSheet:selectView];
         }
             break;
     }
 }
 
-- (void)hierarchyInfoViewDidSelectCloseButton:(ZooHierarchyInfoView *)view {
+- (void)hierarchyInfoViewDidSelectCloseButton:(DKHierarchyInfoView *)view {
     [[ZooHierarchyHelper shared].window hide];
     [ZooHierarchyHelper shared].window = nil;
 }

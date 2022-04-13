@@ -1,8 +1,8 @@
 //
 //  ZooHealthManager.h
-//  ZooKit
+//  Zoo
 //
-//  Created by lZackx on 04/12/2022 
+//  Created by lZackx on 04/12/2022
 //
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
@@ -43,8 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 //检测结果
 @property (nonatomic, assign) CGFloat startTime;//本次启动时间 单位ms
 @property (nonatomic, copy) NSString *costDetail;//启动流程耗时详情
-@property (nonatomic, copy) NSString *caseName;//用例名称
-@property (nonatomic, copy) NSString *testPerson;//测试人名称
 
 
 - (BOOL)blackList:(Class)vcClass;
