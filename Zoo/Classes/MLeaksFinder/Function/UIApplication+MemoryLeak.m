@@ -2,8 +2,7 @@
 //  UIApplication+MemoryLeak.m
 //  MLeaksFinder
 //
-//  Created by 佘泽坡 on 5/11/16.
-//  Copyright © 2016 zeposhe. All rights reserved.
+//  Created by lZackx on 2022/4/14.  Copyright © 2016 zeposhe. All rights reserved.
 //
 
 #import "UIApplication+MemoryLeak.h"

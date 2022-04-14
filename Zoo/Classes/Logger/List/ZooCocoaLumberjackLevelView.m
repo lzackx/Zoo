@@ -1,12 +1,11 @@
 //
 //  ZooCocoaLumberjackLevelView.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2018/12/6.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooCocoaLumberjackLevelView.h"
-#import "DoraemonDefine.h"
+#import "ZooDefine.h"
 
 @interface ZooCocoaLumberjackLevelView()
 
@@ -21,13 +20,13 @@
     if (self) {
         NSArray *dataArray = @[@"Verbose",@"Debug",@"Info",@"Warn",@"Error"];
         _segment = [[UISegmentedControl alloc] initWithItems:dataArray];
-        _segment.frame = CGRectMake(kDoraemonSizeFrom750_Landscape(32), self.doraemon_height/2-kDoraemonSizeFrom750_Landscape(68)/2, self.doraemon_width-kDoraemonSizeFrom750_Landscape(32)*2, kDoraemonSizeFrom750_Landscape(68));
+        _segment.frame = CGRectMake(kZooSizeFrom750_Landscape(32), self.zoo_height/2-kZooSizeFrom750_Landscape(68)/2, self.zoo_width-kZooSizeFrom750_Landscape(32)*2, kZooSizeFrom750_Landscape(68));
 #if defined(__IPHONE_13_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0)
         if (@available(iOS 13, *)) {
-           _segment.selectedSegmentTintColor = [UIColor doraemon_colorWithString:@"#337CC4"];
+           _segment.selectedSegmentTintColor = [UIColor zoo_colorWithString:@"#337CC4"];
         } else {
 #endif
-            _segment.tintColor = [UIColor doraemon_colorWithString:@"#337CC4"];
+            _segment.tintColor = [UIColor zoo_colorWithString:@"#337CC4"];
 #if defined(__IPHONE_13_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0)
         }
 #endif

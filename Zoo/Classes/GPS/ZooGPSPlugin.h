@@ -1,13 +1,12 @@
 //
 //  ZooGPSPlugin.h
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2017/12/20.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <Foundation/Foundation.h>
-#import "DoraemonPluginProtocol.h"
+#import "ZooPluginProtocol.h"
 
-@interface ZooGPSPlugin : NSObject<DoraemonPluginProtocol>
+@interface ZooGPSPlugin : NSObject<ZooPluginProtocol>
 
 @end

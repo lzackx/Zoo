@@ -2,8 +2,7 @@
 //  ZooBaseViewController.h
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022
-//  Copyright © 2017年 yixiang. All rights reserved.
+//  Created by lZackx on 2022/4/14.  Copyright © 2017年 yixiang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

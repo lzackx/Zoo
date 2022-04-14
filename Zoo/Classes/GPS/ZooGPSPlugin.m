@@ -1,9 +1,8 @@
 //
 //  ZooGPSPlugin.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2017/12/20.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooGPSPlugin.h"
 #import "ZooGPSViewController.h"

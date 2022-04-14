@@ -1,21 +1,20 @@
 //
 //  ZooMemoryLeakData.h
-//  DoraemonKit
+//  Zoo
 //
-//  Created by didi on 2019/10/7.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^DoraemonLeakManagerBlock)(NSDictionary *leakInfo);
+typedef void (^ZooLeakManagerBlock)(NSDictionary *leakInfo);
 
 @interface ZooMemoryLeakData : NSObject
 
 + (ZooMemoryLeakData *)shareInstance;
 
-- (void)addLeakBlock:(DoraemonLeakManagerBlock)block;
+- (void)addLeakBlock:(ZooLeakManagerBlock)block;
 
 - (void)addObject:(id)object;
 

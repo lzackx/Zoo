@@ -1,12 +1,11 @@
 //
 //  ZooMLeaksFinderListCell.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by didi on 2019/10/7.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooMLeaksFinderListCell.h"
-#import "DoraemonDefine.h"
+#import "ZooDefine.h"
 
 @interface ZooMLeaksFinderListCell()
 
@@ -23,8 +22,8 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.textColor = [UIColor doraemon_black_1];
-        _titleLabel.font = [UIFont systemFontOfSize:kDoraemonSizeFrom750_Landscape(28)];
+        _titleLabel.textColor = [UIColor zoo_black_1];
+        _titleLabel.font = [UIFont systemFontOfSize:kZooSizeFrom750_Landscape(28)];
         [self.contentView addSubview:_titleLabel];
     }
     return self;
@@ -33,14 +32,14 @@
 - (void)renderCellWithData:(NSDictionary *)dic{
     self.titleLabel.text = dic[@"className"];
     [self.titleLabel sizeToFit];
-    self.titleLabel.frame = CGRectMake(kDoraemonSizeFrom750_Landscape(32), [[self class] cellHeight]/2-self.titleLabel.doraemon_height/2, DoraemonScreenWidth - 120, self.titleLabel.doraemon_height);
+    self.titleLabel.frame = CGRectMake(kZooSizeFrom750_Landscape(32), [[self class] cellHeight]/2-self.titleLabel.zoo_height/2, ZooScreenWidth - 120, self.titleLabel.zoo_height);
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.titleLabel.minimumScaleFactor = 0.1;
     
 }
 
 + (CGFloat)cellHeight{
-    return kDoraemonSizeFrom750_Landscape(104);
+    return kZooSizeFrom750_Landscape(104);
 }
 
 

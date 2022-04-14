@@ -1,9 +1,8 @@
 //
 //  ZooMemoryLeakData.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by didi on 2019/10/7.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "MLeaksFinder.h"
 #import "ZooMemoryLeakData.h"
@@ -11,12 +10,12 @@
 #import <FBRetainCycleDetector/FBRetainCycleDetector.h>
 #endif
 #import "ZooHealthManager.h"
-#import "DoraemonDefine.h"
+#import "ZooDefine.h"
 
 @interface ZooMemoryLeakData()
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
-@property (nonatomic, copy) DoraemonLeakManagerBlock block;
+@property (nonatomic, copy) ZooLeakManagerBlock block;
 
 @end
 
@@ -39,7 +38,7 @@
     return self;
 }
 
-- (void)addLeakBlock:(DoraemonLeakManagerBlock)block{
+- (void)addLeakBlock:(ZooLeakManagerBlock)block{
     self.block = block;
 }
 

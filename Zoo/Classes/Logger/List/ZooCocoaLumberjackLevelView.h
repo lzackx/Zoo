@@ -1,15 +1,14 @@
 //
 //  ZooCocoaLumberjackLevelView.h
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2018/12/6.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol DoraemonCocoaLumberjackLevelViewDelegate<NSObject>
+@protocol ZooCocoaLumberjackLevelViewDelegate<NSObject>
 
 - (void)segmentSelected:(NSInteger)index;
 
@@ -17,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZooCocoaLumberjackLevelView : UIView
 
-@property (nonatomic, weak) id<DoraemonCocoaLumberjackLevelViewDelegate> delegate;
+@property (nonatomic, weak) id<ZooCocoaLumberjackLevelViewDelegate> delegate;
 
 @end
 

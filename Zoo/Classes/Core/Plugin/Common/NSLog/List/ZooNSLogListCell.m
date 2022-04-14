@@ -2,8 +2,7 @@
 //  ZooNSLogListCell.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooNSLogListCell.h"
 #import "ZooDefine.h"

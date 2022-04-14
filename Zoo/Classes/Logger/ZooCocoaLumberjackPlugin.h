@@ -1,16 +1,15 @@
 //
 //  ZooCocoaLumberjackPlugin.h
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2018/12/4.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <Foundation/Foundation.h>
-#import "DoraemonPluginProtocol.h"
+#import "ZooPluginProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZooCocoaLumberjackPlugin : NSObject<DoraemonPluginProtocol>
+@interface ZooCocoaLumberjackPlugin : NSObject<ZooPluginProtocol>
 
 @end
 

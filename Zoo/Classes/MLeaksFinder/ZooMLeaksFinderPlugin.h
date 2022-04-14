@@ -1,16 +1,15 @@
 //
 //  ZooMLeaksFinderPlugin.h
-//  DoraemonKit
+//  Zoo
 //
-//  Created by didi on 2019/10/6.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <Foundation/Foundation.h>
-#import "DoraemonPluginProtocol.h"
+#import "ZooPluginProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZooMLeaksFinderPlugin : NSObject<DoraemonPluginProtocol>
+@interface ZooMLeaksFinderPlugin : NSObject<ZooPluginProtocol>
 
 @end
 

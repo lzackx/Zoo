@@ -1,9 +1,8 @@
 //
 //  ZooMLeaksFinderListCell.h
-//  DoraemonKit
+//  Zoo
 //
-//  Created by didi on 2019/10/7.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <UIKit/UIKit.h>
 

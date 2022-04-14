@@ -1,13 +1,12 @@
 //
 //  ZooMLeaksFinderListViewController.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by didi on 2019/10/6.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooMLeaksFinderListViewController.h"
 #import "ZooMemoryLeakData.h"
-#import "DoraemonDefine.h"
+#import "ZooDefine.h"
 #import "ZooMLeaksFinderListCell.h"
 #import "ZooMLeaksFinderDetailViewController.h"
 
@@ -22,10 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = DoraemonLocalizedString(@"内存泄漏检测结果");
+    self.title = ZooLocalizedString(@"内存泄漏检测结果");
     
     _dataArray = [ NSArray arrayWithArray:[[ZooMemoryLeakData shareInstance] getResult]];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.doraemon_width, self.view.doraemon_height) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.zoo_width, self.view.zoo_height) style:UITableViewStylePlain];
 //    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -54,7 +53,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifer = @"DoraemonMLeaksFinderListCellID";
+    static NSString *identifer = @"ZooMLeaksFinderListCellID";
     ZooMLeaksFinderListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifer];
     if (!cell) {
         cell = [[ZooMLeaksFinderListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifer];

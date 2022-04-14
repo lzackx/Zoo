@@ -2,8 +2,7 @@
 //  MLeakedObjectProxy.h
 //  MLeaksFinder
 //
-//  Created by 佘泽坡 on 7/15/16.
-//  Copyright © 2016 zeposhe. All rights reserved.
+//  Created by lZackx on 2022/4/14.  Copyright © 2016 zeposhe. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

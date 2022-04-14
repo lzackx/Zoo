@@ -1,20 +1,19 @@
 //
 //  ZooCocoaLumberjackListViewController.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2018/12/4.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooCocoaLumberjackListViewController.h"
 #import "ZooNSLogSearchView.h"
-#import "DoraemonDefine.h"
+#import "ZooDefine.h"
 #import "ZooCocoaLumberjackLevelView.h"
 #import "ZooCocoaLumberjackListCell.h"
 #import "ZooDDLogMessage.h"
 #import "ZooCocoaLumberjackLogger.h"
 #import "ZooNavBarItemModel.h"
 
-@interface ZooCocoaLumberjackListViewController ()<DoraemonNSLogSearchViewDelegate,DoraemonCocoaLumberjackLevelViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface ZooCocoaLumberjackListViewController ()<ZooNSLogSearchViewDelegate,ZooCocoaLumberjackLevelViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) ZooNSLogSearchView *searchView;
 @property (nonatomic, strong) ZooCocoaLumberjackLevelView *levelView;
@@ -29,23 +28,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = DoraemonLocalizedString(@"日志记录");
-    ZooNavBarItemModel *model1 = [[ZooNavBarItemModel alloc] initWithText:DoraemonLocalizedString(@"清除") color:[UIColor doraemon_blue] selector:@selector(clear)];
-    ZooNavBarItemModel *model2 = [[ZooNavBarItemModel alloc] initWithText:DoraemonLocalizedString(@"导出") color:[UIColor doraemon_blue] selector:@selector(export)];
+    self.title = ZooLocalizedString(@"日志记录");
+    ZooNavBarItemModel *model1 = [[ZooNavBarItemModel alloc] initWithText:ZooLocalizedString(@"清除") color:[UIColor zoo_blue] selector:@selector(clear)];
+    ZooNavBarItemModel *model2 = [[ZooNavBarItemModel alloc] initWithText:ZooLocalizedString(@"导出") color:[UIColor zoo_blue] selector:@selector(export)];
     [self setRightNavBarItems:@[model1,model2]];
     
     self.origArray = [NSArray arrayWithArray:[ZooCocoaLumberjackLogger sharedInstance].messages];
     self.dataArray = [NSArray arrayWithArray:self.origArray];
     
-    _searchView = [[ZooNSLogSearchView alloc] initWithFrame:CGRectMake(kDoraemonSizeFrom750_Landscape(32), IPHONE_NAVIGATIONBAR_HEIGHT+kDoraemonSizeFrom750_Landscape(32), self.view.doraemon_width-2*kDoraemonSizeFrom750_Landscape(32), kDoraemonSizeFrom750_Landscape(100))];
+    _searchView = [[ZooNSLogSearchView alloc] initWithFrame:CGRectMake(kZooSizeFrom750_Landscape(32), IPHONE_NAVIGATIONBAR_HEIGHT+kZooSizeFrom750_Landscape(32), self.view.zoo_width-2*kZooSizeFrom750_Landscape(32), kZooSizeFrom750_Landscape(100))];
     _searchView.delegate = self;
     [self.view addSubview:_searchView];
     
-    _levelView = [[ZooCocoaLumberjackLevelView alloc] initWithFrame:CGRectMake(0, _searchView.doraemon_bottom+kDoraemonSizeFrom750_Landscape(32), self.view.doraemon_width, kDoraemonSizeFrom750_Landscape(68))];
+    _levelView = [[ZooCocoaLumberjackLevelView alloc] initWithFrame:CGRectMake(0, _searchView.zoo_bottom+kZooSizeFrom750_Landscape(32), self.view.zoo_width, kZooSizeFrom750_Landscape(68))];
     _levelView.delegate = self;
     [self.view addSubview:_levelView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _levelView.doraemon_bottom+kDoraemonSizeFrom750_Landscape(32), self.view.doraemon_width, self.view.doraemon_height-_searchView.doraemon_bottom-kDoraemonSizeFrom750_Landscape(32)) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _levelView.zoo_bottom+kZooSizeFrom750_Landscape(32), self.view.zoo_width, self.view.zoo_height-_searchView.zoo_bottom-kZooSizeFrom750_Landscape(32)) style:UITableViewStylePlain];
 //    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
@@ -120,7 +119,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return DoraemonLocalizedString(@"复制");
+    return ZooLocalizedString(@"复制");
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -132,7 +131,7 @@
     }
 }
 
-#pragma mark - DoraemonNSLogSearchViewDelegate
+#pragma mark - ZooNSLogSearchViewDelegate
 - (void)searchViewInputChange:(NSString *)text{
     if (text.length > 0) {
         NSArray *dataArray = self.origArray;
@@ -151,7 +150,7 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - DoraemonCocoaLumberjackLevelViewDelegate
+#pragma mark - ZooCocoaLumberjackLevelViewDelegate
 - (void)segmentSelected:(NSInteger)index{
     NSLog(@"%zi",DDLogFlagError);
     NSLog(@"%zi",DDLogFlagWarning);

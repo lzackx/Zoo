@@ -2,8 +2,7 @@
 //  ZooManager.h
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -14,15 +13,6 @@ typedef void (^ZooH5DoorBlock)(NSString *);
 typedef UIImage * _Nullable (^ZooWebpHandleBlock)(NSString *filePath);
 
 typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
-    #pragma mark - weex专项工具
-    // 日志
-    ZooManagerPluginType_ZooWeexLogPlugin,
-    // 缓存
-    ZooManagerPluginType_ZooWeexStoragePlugin,
-    // 信息
-    ZooManagerPluginType_ZooWeexInfoPlugin,
-    // DevTool
-    ZooManagerPluginType_ZooWeexDevToolPlugin,
     #pragma mark - 常用工具
     // App设置
     ZooManagerPluginType_ZooAppSettingPlugin,
@@ -44,8 +34,6 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
     ZooManagerPluginType_ZooNSLogPlugin,
     // 日志显示
     ZooManagerPluginType_ZooCocoaLumberjackPlugin,
-    // 数据库工具
-    ZooManagerPluginType_ZooDatabasePlugin,
     // NSUserDefaults工具
     ZooManagerPluginType_ZooNSUserDefaultsPlugin,
     
@@ -60,8 +48,6 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
     ZooManagerPluginType_ZooNetFlowPlugin,
     // 卡顿检测
     ZooManagerPluginType_ZooANRPlugin,
-    // Load耗时
-    ZooManagerPluginType_ZooMethodUseTimePlugin,
     // 大图检测
     ZooManagerPluginType_ZooLargeImageFilter,
     // 启动耗时
@@ -153,12 +139,6 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 - (void)hiddenZoo;
 
 - (void)hiddenHomeWindow;
-
-- (void)addGeneralPlugins;
-
-- (void)addPerformancePlugins;
-
-- (void)addUIPlugins;
 
 @property (nonatomic, assign) int64_t bigImageDetectionSize; // 外部设置大图检测的监控数值  比如监控所有图片大于50K的图片 那么这个值就设置为 50 * 1024；
 

@@ -1,9 +1,8 @@
 //
 //  ZooMLeaksFinderPlugin.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by didi on 2019/10/6.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooMLeaksFinderPlugin.h"
 #import "ZooHomeWindow.h"

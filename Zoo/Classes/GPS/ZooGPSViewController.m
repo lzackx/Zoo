@@ -1,15 +1,14 @@
 //
 //  ZooGPSViewController.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2017/12/20.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooGPSViewController.h"
 #import <MapKit/MapKit.h>
-#import "UIImage+Doraemon.h"
-#import "UIView+Doraemon.h"
-#import "DoraemonDefine.h"
+#import "UIImage+Zoo.h"
+#import "UIView+Zoo.h"
+#import "ZooDefine.h"
 #import "ZooCacheManager.h"
 #import "ZooToastUtil.h"
 #import "ZooGPSMocker.h"
@@ -18,7 +17,7 @@
 #import "ZooMockGPSInputView.h"
 #import "ZooMockGPSCenterView.h"
 
-@interface ZooGPSViewController ()<MKMapViewDelegate,DoraemonMockGPSInputViewDelegate>
+@interface ZooGPSViewController ()<MKMapViewDelegate,ZooMockGPSInputViewDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -32,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = DoraemonLocalizedString(@"Mock GPS");
+    self.title = ZooLocalizedString(@"Mock GPS");
     
     [self initUI];
 }
@@ -42,19 +41,19 @@
 }
 
 - (void)initUI{
-    _operateView = [[ZooMockGPSOperateView alloc] initWithFrame:CGRectMake(kDoraemonSizeFrom750_Landscape(6), self.bigTitleView.doraemon_bottom+kDoraemonSizeFrom750_Landscape(24), self.view.doraemon_width-2*kDoraemonSizeFrom750_Landscape(6), kDoraemonSizeFrom750_Landscape(124))];
+    _operateView = [[ZooMockGPSOperateView alloc] initWithFrame:CGRectMake(kZooSizeFrom750_Landscape(6), self.bigTitleView.zoo_bottom+kZooSizeFrom750_Landscape(24), self.view.zoo_width-2*kZooSizeFrom750_Landscape(6), kZooSizeFrom750_Landscape(124))];
     _operateView.switchView.on = [[ZooCacheManager sharedInstance] mockGPSSwitch];
     [self.view addSubview:_operateView];
     [_operateView.switchView addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     
-    _inputView = [[ZooMockGPSInputView alloc] initWithFrame:CGRectMake(kDoraemonSizeFrom750_Landscape(6), _operateView.doraemon_bottom+kDoraemonSizeFrom750_Landscape(17), self.view.doraemon_width-2*kDoraemonSizeFrom750_Landscape(6), kDoraemonSizeFrom750_Landscape(170))];
+    _inputView = [[ZooMockGPSInputView alloc] initWithFrame:CGRectMake(kZooSizeFrom750_Landscape(6), _operateView.zoo_bottom+kZooSizeFrom750_Landscape(17), self.view.zoo_width-2*kZooSizeFrom750_Landscape(6), kZooSizeFrom750_Landscape(170))];
     _inputView.delegate = self;
     [self.view addSubview:_inputView];
     
     //获取定位服务授权
     [self requestUserLocationAuthor];
     //初始化地图
-    MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, self.bigTitleView.doraemon_bottom, self.view.doraemon_width, self.view.doraemon_height-self.bigTitleView.doraemon_bottom)];
+    MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, self.bigTitleView.zoo_bottom, self.view.zoo_width, self.view.zoo_height-self.bigTitleView.zoo_bottom)];
     mapView.mapType = MKMapTypeStandard;
     mapView.delegate = self;
     [self.view addSubview:mapView];
@@ -62,7 +61,7 @@
     
     [self.view sendSubviewToBack:self.mapView];
     
-    _mapCenterView = [[ZooMockGPSCenterView alloc] initWithFrame:CGRectMake(_mapView.doraemon_width/2-kDoraemonSizeFrom750_Landscape(250)/2, _mapView.doraemon_height/2-kDoraemonSizeFrom750_Landscape(250)/2, kDoraemonSizeFrom750_Landscape(250), kDoraemonSizeFrom750_Landscape(250))];
+    _mapCenterView = [[ZooMockGPSCenterView alloc] initWithFrame:CGRectMake(_mapView.zoo_width/2-kZooSizeFrom750_Landscape(250)/2, _mapView.zoo_height/2-kZooSizeFrom750_Landscape(250)/2, kZooSizeFrom750_Landscape(250), kZooSizeFrom750_Landscape(250))];
     [_mapView addSubview:_mapCenterView];
 
     if (_operateView.switchView.on) {
@@ -96,10 +95,10 @@
     }
 }
 
-#pragma mark - DoraemonMockGPSInputViewDelegate
+#pragma mark - ZooMockGPSInputViewDelegate
 - (void)inputViewOkClick:(NSString *)gps{
     if (![[ZooCacheManager sharedInstance] mockGPSSwitch]) {
-        [ZooToastUtil showToast:DoraemonLocalizedString(@"mock开关没有打开") inView:self.view];
+        [ZooToastUtil showToast:ZooLocalizedString(@"mock开关没有打开") inView:self.view];
         return;
     }
     NSArray *array = [gps componentsSeparatedByString:@" "];
@@ -107,18 +106,18 @@
         NSString *longitudeValue = array[0];
         NSString *latitudeValue = array[1];
         if (longitudeValue.length==0 || latitudeValue.length==0) {
-            [ZooToastUtil showToast:DoraemonLocalizedString(@"经纬度不能为空") inView:self.view];
+            [ZooToastUtil showToast:ZooLocalizedString(@"经纬度不能为空") inView:self.view];
             return;
         }
         
         CGFloat longitude = [longitudeValue floatValue];
         CGFloat latitude = [latitudeValue floatValue];
         if (longitude < -180 || longitude > 180) {
-            [ZooToastUtil showToast:DoraemonLocalizedString(@"经度不合法") inView:self.view];
+            [ZooToastUtil showToast:ZooLocalizedString(@"经度不合法") inView:self.view];
             return;
         }
         if (latitude < -90 || latitude > 90){
-            [ZooToastUtil showToast:DoraemonLocalizedString(@"纬度不合法") inView:self.view];
+            [ZooToastUtil showToast:ZooLocalizedString(@"纬度不合法") inView:self.view];
             return;
         }
         
@@ -133,7 +132,7 @@
         CLLocation *loc = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
         [[ZooGPSMocker shareInstance] mockPoint:loc];
     }else{
-        [ZooToastUtil showToast:DoraemonLocalizedString(@"格式不正确") inView:self.view];
+        [ZooToastUtil showToast:ZooLocalizedString(@"格式不正确") inView:self.view];
         return;
     }
     

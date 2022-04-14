@@ -2,8 +2,7 @@
 //  MLeakedObjectProxy.m
 //  MLeaksFinder
 //
-//  Created by 佘泽坡 on 7/15/16.
-//  Copyright © 2016 zeposhe. All rights reserved.
+//  Created by lZackx on 2022/4/14.  Copyright © 2016 zeposhe. All rights reserved.
 //
 
 #import "MLeakedObjectProxy.h"
@@ -13,9 +12,9 @@
 #import "ZooMemoryLeakData.h"
 #import "ZooCacheManager.h"
 #import "ZooAlertUtil.h"
-#import "UIViewController+Doraemon.h"
+#import "UIViewController+Zoo.h"
 #import "ZooAlertUtil.h"
-#import "UIViewController+Doraemon.h"
+#import "UIViewController+Zoo.h"
 
 #if _INTERNAL_MLF_RC_ENABLED
 #import <FBRetainCycleDetector/FBRetainCycleDetector.h>

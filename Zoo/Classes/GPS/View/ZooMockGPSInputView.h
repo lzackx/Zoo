@@ -1,13 +1,12 @@
 //
 //  ZooMockGPSInputView.h
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2018/12/2.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <UIKit/UIKit.h>
 
-@protocol DoraemonMockGPSInputViewDelegate <NSObject>
+@protocol ZooMockGPSInputViewDelegate <NSObject>
 
 - (void)inputViewOkClick:(NSString *)gps;
 
@@ -15,7 +14,7 @@
 
 @interface ZooMockGPSInputView : UIView
 
-@property (nonatomic, weak) id<DoraemonMockGPSInputViewDelegate> delegate;
+@property (nonatomic, weak) id<ZooMockGPSInputViewDelegate> delegate;
 
 @end
 

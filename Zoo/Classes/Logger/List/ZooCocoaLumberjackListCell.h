@@ -1,9 +1,8 @@
 //
 //  ZooCocoaLumberjackListCell.h
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2018/12/6.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import <UIKit/UIKit.h>
 #import "ZooDDLogMessage.h"

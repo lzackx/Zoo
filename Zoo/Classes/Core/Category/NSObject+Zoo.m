@@ -2,8 +2,7 @@
 //  NSObject+Zoo.m
 //  Zoo
 //
-//  Created by lZackx on 04/12/2022
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "NSObject+Zoo.h"
 #import <objc/runtime.h>

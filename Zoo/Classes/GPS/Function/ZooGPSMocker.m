@@ -1,13 +1,12 @@
 //
 //  ZooGPSMocker.m
-//  DoraemonKit
+//  Zoo
 //
-//  Created by yixiang on 2018/7/4.
-//
+//  Created by lZackx on 2022/4/14.
 
 #import "ZooGPSMocker.h"
-#import "NSObject+Doraemon.h"
-#import "CLLocationManager+Doraemon.h"
+#import "NSObject+Zoo.h"
+#import "CLLocationManager+Zoo.h"
 
 @interface ZooGPSMocker()<CLLocationManagerDelegate>
 
@@ -51,7 +50,7 @@
 }
 
 - (void)swizzleCLLocationMangagerDelegate {
-    [[CLLocationManager class] doraemon_swizzleInstanceMethodWithOriginSel:@selector(setDelegate:) swizzledSel:@selector(doraemon_swizzleLocationDelegate:)];
+    [[CLLocationManager class] zoo_swizzleInstanceMethodWithOriginSel:@selector(setDelegate:) swizzledSel:@selector(zoo_swizzleLocationDelegate:)];
 }
 
 -(BOOL)mockPoint:(CLLocation*)location{
