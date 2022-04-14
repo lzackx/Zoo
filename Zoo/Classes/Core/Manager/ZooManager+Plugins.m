@@ -26,6 +26,7 @@
     [self addPluginWithPluginType:ZooManagerPluginType_ZooDeleteLocalDataPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooNSLogPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooNSUserDefaultsPlugin];
+    [self addPluginWithPluginType:ZooManagerPluginType_ZooCrashPlugin];
 }
 
 #pragma mark - Platform
@@ -42,7 +43,6 @@
     [self addPluginWithPluginType:ZooManagerPluginType_ZooCPUPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooMemoryPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooNetFlowPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooCrashPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooSubThreadUICheckPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooANRPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooLargeImageFilter];
@@ -91,8 +91,7 @@
     [self addPluginWithTitle:model.title icon:model.icon desc:model.desc pluginName:model.pluginName atModule:model.atModule];
 }
 
-- (void)removePluginWithPluginType:(ZooManagerPluginType)pluginType
-{
+- (void)removePluginWithPluginType:(ZooManagerPluginType)pluginType {
     ZooManagerPluginTypeModel *model = [self getDefaultPluginDataWithPluginType:pluginType];
     [self removePluginWithPluginName:model.pluginName atModule:model.atModule];
 }
@@ -162,6 +161,13 @@
                                    @{kPluginName:@"ZooNSUserDefaultsPlugin"},
                                    @{kAtModule:ZooLocalizedString(@"常用工具")}
                            ],
+                           @(ZooManagerPluginType_ZooCrashPlugin) : @[
+                               @{kTitle:ZooLocalizedString(@"Crash")},
+                               @{kDesc:ZooLocalizedString(@"Crash")},
+                               @{kIcon:@"zoo_crash"},
+                               @{kPluginName:@"ZooCrashPlugin"},
+                               @{kAtModule:ZooLocalizedString(@"常用工具")}
+                           ],
                            
                            // 性能检测
                            @(ZooManagerPluginType_ZooFPSPlugin) : @[
@@ -190,13 +196,6 @@
                                    @{kDesc:ZooLocalizedString(@"网络监控")},
                                    @{kIcon:@"zoo_net"},
                                    @{kPluginName:@"ZooNetFlowPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-                                   ],
-                           @(ZooManagerPluginType_ZooCrashPlugin) : @[
-                                   @{kTitle:ZooLocalizedString(@"Crash")},
-                                   @{kDesc:ZooLocalizedString(@"Crash")},
-                                   @{kIcon:@"zoo_crash"},
-                                   @{kPluginName:@"ZooCrashPlugin"},
                                    @{kAtModule:ZooLocalizedString(@"性能检测")}
                                    ],
                            @(ZooManagerPluginType_ZooSubThreadUICheckPlugin) : @[

@@ -91,8 +91,6 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 
 + (nonnull ZooManager *)shareInstance;
 
-@property (nonatomic, copy) NSString *mockDomain; //产品mockDomain 非必填
-
 @property (nonatomic, assign) BOOL autoDock; //zoo entry icon support autoDock，deffault yes
 
 - (void)install;
