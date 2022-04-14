@@ -28,41 +28,16 @@ Pod::Spec.new do |s|
     ss.resource_bundles     = {
       'Zoo' => 'Zoo/Assets/**/*'
     }
+    ss.pod_target_xcconfig  = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithPlatform ZooWithPerformance ZooWithUI'
+    }
   end
 
   s.subspec 'All' do |ss|
-  ss.dependency             'Zoo/Core'
-  ss.dependency             'Zoo/Platform'
-  ss.dependency             'Zoo/Performance'
-  ss.dependency             'Zoo/UI'
-  ss.dependency             'Zoo/Logger'
-  ss.dependency             'Zoo/GPS'
+    ss.dependency             'Zoo/Core'
+    ss.dependency             'Zoo/Logger'
+    ss.dependency             'Zoo/GPS'
   # ss.dependency             'Zoo/MemoryLeaksFinder'
-  end
-
-  s.subspec 'Platform' do |ss|
-    ss.source_files         = 'Zoo/Classes/Platform/**/*.{h,m,c,mm}'
-    ss.dependency             'Zoo/Core'
-    ss.pod_target_xcconfig  = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithPlatform'
-    }
-  end
-
-  s.subspec 'Performance' do |ss|
-    ss.source_files         = 'Zoo/Classes/Performance/**/*.{h,m,c,mm}'
-    ss.dependency             'Zoo/Core'
-    ss.dependency             'Zoo/Platform'
-    ss.pod_target_xcconfig  = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithPerformance'
-    }
-  end
-
-  s.subspec 'UI' do |ss|
-    ss.source_files         = 'Zoo/Classes/UI/**/*.{h,m,c,mm}'
-    ss.dependency             'Zoo/Core'
-    ss.pod_target_xcconfig  = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithUI'
-    }
   end
 
   s.subspec 'Logger' do |ss| 
