@@ -43,7 +43,6 @@ Pod::Spec.new do |s|
   s.subspec 'Platform' do |ss|
     ss.source_files         = 'Zoo/Classes/Platform/**/*.{h,m,c,mm}'
     ss.dependency             'Zoo/Core'
-    ss.dependency             'Zoo/Performance'
     ss.pod_target_xcconfig  = {
       'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithPlatform'
     }
@@ -52,6 +51,7 @@ Pod::Spec.new do |s|
   s.subspec 'Performance' do |ss|
     ss.source_files         = 'Zoo/Classes/Performance/**/*.{h,m,c,mm}'
     ss.dependency             'Zoo/Core'
+    ss.dependency             'Zoo/Platform'
     ss.pod_target_xcconfig  = {
       'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithPerformance'
     }
