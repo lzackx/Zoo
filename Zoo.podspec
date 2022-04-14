@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
     ss.dependency             'Zoo/Core'
     ss.dependency             'Zoo/Logger'
     ss.dependency             'Zoo/GPS'
-  # ss.dependency             'Zoo/MemoryLeaksFinder'
+    ss.dependency             'Zoo/MemoryLeaksFinder'
   end
 
   s.subspec 'Logger' do |ss| 
@@ -57,13 +57,13 @@ Pod::Spec.new do |s|
     }
   end
 
-  # s.subspec 'MemoryLeaksFinder' do |ss|
-  #   ss.source_files         = 'Zoo/Classes/MLeaksFinder/**/*{.h,.m}'
-  #   ss.dependency           'Zoo/Core'
-  #   ss.dependency           'FBRetainCycleDetector'
-  #   ss.pod_target_xcconfig = {
-  #     'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithMLeaksFinder'
-  #   }
-  # end
+  s.subspec 'MemoryLeaksFinder' do |ss|
+    ss.source_files         = 'Zoo/Classes/MLeaksFinder/**/*{.h,.m}'
+    ss.dependency           'Zoo/Core'
+    ss.dependency           'FBRetainCycleDetector'
+    ss.pod_target_xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithMLeaksFinder'
+    }
+  end
 
 end
