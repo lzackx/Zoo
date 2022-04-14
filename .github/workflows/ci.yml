@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Switch XCode Version
-      run: sudo xcode-select -s /Applications/Xcode_13.app
+      run: sudo xcode-select -s /Applications/Xcode_12.app
     - name: Install Dependences
       run: |
         cd Example
@@ -33,5 +33,5 @@ jobs:
         test: false
         lint: true
         use_modern_build_system: true
-        additional_build_params: -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation),OS=15.0'
+        additional_build_params: -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation),OS=14.0'
         additional_lint_params: --allow-warnings --verbose
