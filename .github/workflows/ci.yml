@@ -20,8 +20,8 @@ jobs:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@master
-    # - name: Switch XCode Version
-    #   run: sudo xcode-select -s /Applications/Xcode_12.app
+      with:
+          xcode-version: "12.0"
     - name: Install Dependences
       run: |
         cd Example
