@@ -2,7 +2,6 @@
 
 Modified from [DoraemonKit](https://github.com/didi/DoraemonKit)
 
-[![Build Status](https://github.com/lzackx/Zoo/actions/workflows/ci.yml/badge.svg)](https://github.com/lzackx/Zoo/actions)
 [![Version](https://img.shields.io/cocoapods/v/Zoo.svg?style=flat)](https://cocoapods.org/pods/Zoo)
 [![License](https://img.shields.io/cocoapods/l/Zoo.svg?style=flat)](https://cocoapods.org/pods/Zoo)
 [![Platform](https://img.shields.io/cocoapods/p/Zoo.svg?style=flat)](https://cocoapods.org/pods/Zoo)
