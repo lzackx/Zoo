@@ -2,7 +2,7 @@
 //  ZooUtil.m
 //  Zoo
 //
-//  Created by lZackx on 2022/4/14.  Copyright © 2017年 yixiang. All rights reserved.
+//  Created by lZackx on 2022/4/14.  
 //
 
 #import "ZooUtil.h"

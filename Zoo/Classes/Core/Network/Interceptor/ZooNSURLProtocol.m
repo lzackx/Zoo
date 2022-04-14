@@ -11,7 +11,6 @@
 #import "ZooURLSessionDemux.h"
 #import "ZooNetworkInterceptor.h"
 #import "ZooManager.h"
-#import "ZooMockManager.h"
 #import "ZooDefine.h"
 #import "ZooUrlUtil.h"
 #import "UIViewController+Zoo.h"
@@ -77,18 +76,6 @@ static NSString * const kZooProtocolKey = @"zoo_protocol_key";
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request{
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
     [NSURLProtocol setProperty:@YES forKey:kZooProtocolKey inRequest:mutableReqeust];
-    if ([[ZooMockManager sharedInstance] needMock:request] && [ZooManager shareInstance].mockDomain) {
-        NSString *mockDomain = [ZooManager shareInstance].mockDomain;
-        NSString *mockSceneUrl = [mockDomain stringByAppendingString:@"api/app/scene/%@"];
-        NSString *sceneId = [[ZooMockManager sharedInstance] getSceneId:request];
-        NSString *urlString = [NSString stringWithFormat:mockSceneUrl, sceneId];
-        ZooLog(@"MOCK URL == %@",urlString);
-        mutableReqeust = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [ZooToastUtil showToastBlack:[NSString stringWithFormat:@"mock url = %@",request.URL.absoluteURL] inView:[UIViewController rootViewControllerForKeyWindow].view];
-        });
-
-    }
     return [mutableReqeust copy];
 }
 

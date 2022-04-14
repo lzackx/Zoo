@@ -32,7 +32,6 @@
 - (void)addPlatformPlugins {
 #if ZooWithPlatform
     [self addPluginWithPluginType:ZooManagerPluginType_ZooHealthPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooMockPlugin];
 #endif
 }
 
@@ -293,13 +292,6 @@
                                            @{kAtModule:ZooLocalizedString(@"视觉工具")}
                                    ],
                            // 聚合工具
-                           @(ZooManagerPluginType_ZooMockPlugin) : @[
-                                @{kTitle:ZooLocalizedString(@"Mock数据")},
-                                   @{kDesc:ZooLocalizedString(@"Mock数据")},
-                                   @{kIcon:@"zoo_mock"},
-                                   @{kPluginName:@"ZooMockPlugin"},
-                                   @{kAtModule:ZooLocalizedString(@"聚合工具")}
-                                   ],
                            @(ZooManagerPluginType_ZooHealthPlugin) : @[
                                @{kTitle:ZooLocalizedString(@"健康体检")},
                                   @{kDesc:ZooLocalizedString(@"健康体检中心")},

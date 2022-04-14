@@ -20,7 +20,6 @@
 #import "ZooHomeWindow.h"
 #import "ZooANRManager.h"
 #import "ZooLargeImageDetectionManager.h"
-#import "ZooMockManager.h"
 #import "ZooNetFlowOscillogramWindow.h"
 #import "ZooNetFlowManager.h"
 #import "ZooHealthManager.h"
@@ -91,11 +90,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     [self installWithStartingPosition:defaultPosition];
 }
 
-- (void)installWithMockDomain:(NSString *)mockDomain{
-    self.mockDomain = mockDomain;
-    [self install];
-}
-
 - (void)installWithStartingPosition:(CGPoint) position{
     _startingPosition = position;
     [self installWithCustomBlock:^{
@@ -148,7 +142,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     }
 #endif
 
-    
     //开启NSLog监控功能
     if ([[ZooCacheManager sharedInstance] nsLogSwitch]) {
         [[ZooNSLogManager sharedInstance] startNSLogMonitor];
@@ -171,17 +164,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
     if (_bigImageDetectionSize > 0){
         [ZooLargeImageDetectionManager shareInstance].minimumDetectionSize = _bigImageDetectionSize;
     }
-    
-    //拉取最新的mock数据
-    [[ZooMockManager sharedInstance] queryMockData:^(int flag) {
-        ZooLog(@"mock get data, flag == %i",flag);
-    }];
-    
-    //Weex工具的初始化
-#if ZooWithWeex
-    [ZooWeexLogDataSource shareInstance];
-    [ZooWeexInfoDataManager shareInstance];
-#endif
     
     //开启健康体检
     if ([[ZooCacheManager sharedInstance] healthStart]) {

@@ -74,8 +74,6 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
     ZooManagerPluginType_ZooViewMetricsPlugin,
     
     #pragma mark - 聚合工具
-    // Mock 数据
-    ZooManagerPluginType_ZooMockPlugin,
     ZooManagerPluginType_ZooHealthPlugin
 };
 
@@ -98,9 +96,6 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 @property (nonatomic, assign) BOOL autoDock; //zoo entry icon support autoDock，deffault yes
 
 - (void)install;
-
-// 自定义平台mockDomain初始化方式
-- (void)installWithMockDomain:(NSString *)mockDomain;
 
 // 定制起始位置 | 适用正好挡住关键位置
 - (void)installWithStartingPosition:(CGPoint) position;
