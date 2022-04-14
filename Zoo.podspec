@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
   ss.dependency             'Zoo/UI'
   ss.dependency             'Zoo/Logger'
   ss.dependency             'Zoo/GPS'
-  ss.dependency             'Zoo/MemoryLeaksFinder'
+  # ss.dependency             'Zoo/MemoryLeaksFinder'
   end
 
   s.subspec 'Platform' do |ss|
