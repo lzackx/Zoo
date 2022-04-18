@@ -22,6 +22,7 @@
     [self addPluginWithPluginType:ZooManagerPluginType_ZooAppSettingPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooAppInfoPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooSandboxPlugin];
+    [self addPluginWithPluginType:ZooManagerPluginType_ZooURLPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooH5Plugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooDeleteLocalDataPlugin];
     [self addPluginWithPluginType:ZooManagerPluginType_ZooNSLogPlugin];
@@ -124,6 +125,13 @@
                                    @{kDesc:ZooLocalizedString(@"Mock GPS")},
                                    @{kIcon:@"zoo_mock_gps"},
                                    @{kPluginName:@"ZooGPSPlugin"},
+                                   @{kAtModule:ZooLocalizedString(@"常用工具")}
+                                   ],
+                           @(ZooManagerPluginType_ZooURLPlugin) : @[
+                                   @{kTitle:ZooLocalizedString(@"万能路由")},
+                                   @{kDesc:ZooLocalizedString(@"万能路由")},
+                                   @{kIcon:@"zoo_h5"},
+                                   @{kPluginName:@"ZooURLPlugin"},
                                    @{kAtModule:ZooLocalizedString(@"常用工具")}
                                    ],
                            @(ZooManagerPluginType_ZooH5Plugin) : @[

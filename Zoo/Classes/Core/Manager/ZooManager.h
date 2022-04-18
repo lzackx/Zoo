@@ -9,7 +9,7 @@
 
 
 NS_ASSUME_NONNULL_BEGIN
-typedef void (^ZooH5DoorBlock)(NSString *);
+typedef void (^ZooURLBlock)(NSString *);
 typedef UIImage * _Nullable (^ZooWebpHandleBlock)(NSString *filePath);
 
 typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
@@ -22,6 +22,8 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
     ZooManagerPluginType_ZooSandboxPlugin,
     // MockGPS
     ZooManagerPluginType_ZooGPSPlugin,
+    // 万能路由
+    ZooManagerPluginType_ZooURLPlugin,
     // H5任意门
     ZooManagerPluginType_ZooH5Plugin,
     // Crash查看
@@ -102,7 +104,8 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 
 @property (nonatomic,strong) NSMutableArray *dataArray;
 
-@property (nonatomic, copy) ZooH5DoorBlock h5DoorBlock;
+@property (nonatomic, copy) ZooURLBlock urlRouterBlock;
+@property (nonatomic, copy) ZooURLBlock h5DoorBlock;
 @property (nonatomic, copy) ZooWebpHandleBlock webpHandleBlock;
 
 - (void)addPluginWithTitle:(NSString *)title icon:(NSString *)iconName desc:(NSString *)desc pluginName:(NSString *)entryName atModule:(NSString *)moduleName;
@@ -117,7 +120,9 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 
 - (void)addStartPlugin:(NSString *)pluginName;
 
-- (void)addH5DoorBlock:(ZooH5DoorBlock)block;
+- (void)addH5DoorBlock:(ZooURLBlock)block;
+
+- (void)addURLRouterBlock:(ZooURLBlock)block;
 
 - (void)addANRBlock:(void(^)(NSDictionary *anrDic))block;
 

@@ -21,7 +21,8 @@ static NSString * const kZooCrashKey = @"zoo_crash_key";
 static NSString * const kZooNSLogKey = @"zoo_nslog_key";
 static NSString * const kZooMethodUseTimeKey = @"zoo_method_use_time_key";
 static NSString * const kZooLargeImageDetectionKey = @"zoo_large_image_detection_key";
-static NSString * const kZooH5historicalRecord = @"zoo_historical_record";
+static NSString * const kZooURLhistoricalRecord = @"zoo_url_historical_record";
+static NSString * const kZooH5historicalRecord = @"zoo_h5_historical_record";
 static NSString * const kZooStartTimeKey = @"zoo_start_time_key";
 static NSString * const kZooStartClassKey = @"zoo_start_class_key";
 static NSString * const kZooANRTrackKey = @"zoo_anr_track_key";
@@ -260,6 +261,57 @@ static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
         [_defaults setObject:muarr.copy forKey:kZooH5historicalRecord];
     } else {
         [_defaults removeObjectForKey:kZooH5historicalRecord];
+    }
+    [_defaults synchronize];
+}
+
+- (NSArray<NSString *> *)urlHistoricalRecord {
+    return [_defaults objectForKey:kZooURLhistoricalRecord];
+}
+
+- (void)saveURLHistoricalRecordWithText:(NSString *)text {
+    /// 过滤异常数据
+    if (!text || text.length <= 0) { return; }
+    
+    NSArray *records = [self urlHistoricalRecord];
+    
+    NSMutableArray *muarr = [NSMutableArray arrayWithArray:records];
+    
+    /// 去重
+    if ([muarr containsObject:text]) {
+        if ([muarr.firstObject isEqualToString:text]) {
+            return;
+        }
+        [muarr removeObject:text];
+    }
+    [muarr insertObject:text atIndex:0];
+    
+    /// 限制数量
+    if (muarr.count > 10) { [muarr removeLastObject]; }
+    
+    [_defaults setObject:muarr.copy forKey:kZooURLhistoricalRecord];
+    [_defaults synchronize];
+}
+
+- (void)clearAllURLHistoricalRecord {
+    [_defaults removeObjectForKey:kZooURLhistoricalRecord];
+    [_defaults synchronize];
+}
+
+- (void)clearURLHistoricalRecordWithText:(NSString *)text {
+    /// 过滤异常数据
+    if (!text || text.length <= 0) { return; }
+    NSArray *records = [self urlHistoricalRecord];
+    /// 不包含
+    if (![records containsObject:text]) { return; }
+    NSMutableArray *muarr = [NSMutableArray array];
+    if (records && records.count > 0) { [muarr addObjectsFromArray:records]; }
+    [muarr removeObject:text];
+    
+    if (muarr.count > 0) {
+        [_defaults setObject:muarr.copy forKey:kZooURLhistoricalRecord];
+    } else {
+        [_defaults removeObjectForKey:kZooURLhistoricalRecord];
     }
     [_defaults synchronize];
 }

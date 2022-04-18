@@ -308,6 +308,10 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
      }
 }
 
+- (void)addURLRouterBlock:(void(^)(NSString *url))block{
+    self.urlRouterBlock = block;
+}
+
 - (void)addH5DoorBlock:(void(^)(NSString *h5Url))block{
     self.h5DoorBlock = block;
 }

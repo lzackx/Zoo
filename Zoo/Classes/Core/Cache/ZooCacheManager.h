@@ -72,6 +72,11 @@
 - (BOOL)anrTrackSwitch;
 
 /// 历史记录
+- (NSArray<NSString *> *)urlHistoricalRecord;
+- (void)saveURLHistoricalRecordWithText:(NSString *)text;
+- (void)clearAllURLHistoricalRecord;
+- (void)clearURLHistoricalRecordWithText:(NSString *)text;
+
 - (NSArray<NSString *> *)h5historicalRecord;
 - (void)saveH5historicalRecordWithText:(NSString *)text;
 - (void)clearAllH5historicalRecord;

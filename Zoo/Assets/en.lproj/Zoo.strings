@@ -102,6 +102,8 @@
     "mock开关没有打开"                      =   "switch is not open";
     "纬度不合法"                             =   "Invalid latitude";
     
+    //万能路由
+    "万能路由"                                 = "Router";
     //H5任意门
     "H5任意门"                                 =  "Browser";
     "清除搜索历史"                            = "Clear search history";
