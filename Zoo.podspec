@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name                    = 'Zoo'
-  s.version                 = '1.1.0'
+  s.version                 = '1.2.0'
   s.summary                 = 'A development tools for developer'
   s.description             = <<-DESC
   A utils for developer
