@@ -7,12 +7,10 @@
 
 {
     //分组名称
-    "业务工具"                                      = "Customize";
     "聚合工具"                                      = "Platform";
-    "常用工具"                                      = "Common";
+    "General"                                      = "General";
     "性能检测"                                      = "Performance";
     "视觉工具"                                      = "UI";
-    "Weex"                                         = "Weex";
     
     //每一个模块
     
@@ -328,6 +326,4 @@
     "复制"                                           = "Copy";
     "删除"                                           = "Delete";
 
-    // 一机多控
-    "一机多控"                                  = "MultiControl";
 }
