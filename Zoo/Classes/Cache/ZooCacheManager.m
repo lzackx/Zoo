@@ -9,18 +9,11 @@
 #import "ZooDefine.h"
 
 
-static NSString * const kZooMemoryLeakKey = @"zoo_memory_leak_key";
-static NSString * const kZooMemoryLeakAlertKey = @"zoo_memory_leak_alert_key";
-static NSString * const kZooAllTestKey = @"zoo_allTest_window_key";
-static NSString * const kZooMockCacheKey = @"zoo_mock_cache_key";
-static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
 #define kZooManagerKey [NSString stringWithFormat:@"%@_zoo_kit_manager_key", ZooVersion]
 
 @interface ZooCacheManager()
 
 @property (nonatomic, strong) NSUserDefaults *defaults;
-@property (nonatomic, assign) BOOL memoryLeakOn;
-@property (nonatomic, assign) BOOL firstReadMemoryLeakOn;
 
 @end
 
@@ -41,57 +34,6 @@ static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
         _defaults = [NSUserDefaults standardUserDefaults];
     }
     return self;
-}
-
-// 内存泄漏开关
-- (void)saveMemoryLeak:(BOOL)on{
-    [[NSUserDefaults standardUserDefaults] setBool:on forKey:kZooMemoryLeakKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-- (BOOL)memoryLeak{
-    if (_firstReadMemoryLeakOn) {
-        return _memoryLeakOn;
-    }
-    _firstReadMemoryLeakOn = YES;
-    _memoryLeakOn = [[NSUserDefaults standardUserDefaults] boolForKey:kZooMemoryLeakKey];
-     
-    return _memoryLeakOn;
-}
-
-// 内存泄漏弹框开关
-- (void)saveMemoryLeakAlert:(BOOL)on{
-    [[NSUserDefaults standardUserDefaults] setBool:on forKey:kZooMemoryLeakAlertKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-- (BOOL)memoryLeakAlert{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kZooMemoryLeakAlertKey];
-}
-
-- (void)saveAllTestSwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooAllTestKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)allTestSwitch{
-    return [_defaults boolForKey:kZooAllTestKey];
-}
-
-// mockapi本地缓存情况
-- (void)saveMockCache:(NSArray *)mocks{
-    [_defaults setObject:mocks forKey:kZooMockCacheKey];
-    [_defaults synchronize];
-}
-- (NSArray *)mockCahce{
-    return [_defaults objectForKey:kZooMockCacheKey];
-}
-
-// 健康体检开关
-- (void)saveHealthStart:(BOOL)on{
-    [_defaults setBool:on forKey:kZooHealthStartKey];
-    [_defaults synchronize];
-}
-- (BOOL)healthStart{
-    return [_defaults boolForKey:kZooHealthStartKey];
 }
 
 // Kit Manager数据保存 只保存内部数据

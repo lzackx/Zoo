@@ -10,18 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
-    // 日志显示
-    ZooManagerPluginType_ZooCocoaLumberjackPlugin,
-    
-    #pragma mark - 性能检测
-    // 内存泄漏
-    ZooManagerPluginType_ZooMemoryLeakPlugin,
-    
-    #pragma mark - 聚合工具
-    ZooManagerPluginType_ZooHealthPlugin
-};
-
 @interface ZooManagerPluginTypeModel : NSObject
 
 @property(nonatomic, copy) NSString *title;

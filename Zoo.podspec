@@ -18,52 +18,12 @@ Pod::Spec.new do |s|
   s.author                  = { 'lzackx' => 'lzackx@lzackx.com' }
   s.source                  = { :git => 'https://github.com/lzackx/Zoo.git', :tag => s.version.to_s }
   s.ios.deployment_target   = '9.0'
-  s.default_subspec         = 'Core'
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES'
   }
-
-  s.subspec 'Core' do |ss|
-    ss.source_files         = 'Zoo/Classes/Core/**/*.{h,m,c,mm}'
-    ss.resource_bundles     = {
-      'Zoo' => 'Zoo/Assets/**/*'
-    }
-    ss.pod_target_xcconfig  = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithPlatform ZooWithPerformance ZooWithUI'
-    }
-  end
-
-  s.subspec 'All' do |ss|
-    ss.dependency             'Zoo/Core'
-    ss.dependency             'Zoo/Logger'
-    ss.dependency             'Zoo/GPS'
-    ss.dependency             'Zoo/MemoryLeaksFinder'
-  end
-
-  s.subspec 'Logger' do |ss| 
-    ss.source_files         = 'Zoo/Classes/Logger/**/*{.h,.m}'
-    ss.dependency           'Zoo/Core'
-    ss.dependency           'CocoaLumberjack'
-    ss.pod_target_xcconfig  = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithLogger'
-    }
-  end
-
-  s.subspec 'GPS' do |ss| 
-    ss.source_files         = 'Zoo/Classes/GPS/**/*{.h,.m}'
-    ss.dependency           'Zoo/Core'
-    ss.pod_target_xcconfig  = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithGPS'
-    }
-  end
-
-  s.subspec 'MemoryLeaksFinder' do |ss|
-    ss.source_files         = 'Zoo/Classes/MLeaksFinder/**/*{.h,.m}'
-    ss.dependency           'Zoo/Core'
-    ss.dependency           'FBRetainCycleDetector'
-    ss.pod_target_xcconfig = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ZooWithMLeaksFinder'
-    }
-  end
+  s.source_files            = 'Zoo/Classes/**/*.{h,m,c,mm}'
+  s.resource_bundles        = {
+    'Zoo' => 'Zoo/Assets/**/*'
+  }
 
 end

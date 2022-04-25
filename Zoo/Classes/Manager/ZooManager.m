@@ -5,7 +5,6 @@
 //  Created by lZackx on 2022/4/14.
 #import <UIKit/UIKit.h>
 #import "ZooManager.h"
-#import "ZooManager+Plugins.h"
 #import "ZooEntryWindow.h"
 #import "ZooCacheManager.h"
 #import "ZooStartPluginProtocol.h"
@@ -13,8 +12,6 @@
 #import "ZooUtil.h"
 #import "ZooHomeWindow.h"
 #import "ZooHomeWindow.h"
-
-//#import "ZooHealthManager.h"
 
 
 @implementation ZooManagerPluginTypeModel
@@ -90,12 +87,6 @@
     customBlock();
 
     [self initEntry:self.startingPosition];
-    
-
-//    //开启健康体检
-//    if ([[ZooCacheManager sharedInstance] healthStart]) {
-//        [[ZooHealthManager sharedInstance] startHealthCheck];
-//    }
     
 }
 
