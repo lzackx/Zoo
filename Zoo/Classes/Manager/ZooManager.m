@@ -275,10 +275,6 @@
      }
 }
 
-- (void)addWebpHandleBlock:(UIImage *(^)(NSString *filePath))block{
-    self.webpHandleBlock = block;
-}
-
 - (void)hiddenHomeWindow{
     [[ZooHomeWindow shareInstance] hide];
 }

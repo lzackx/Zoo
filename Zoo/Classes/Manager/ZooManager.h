@@ -9,8 +9,6 @@
 
 
 NS_ASSUME_NONNULL_BEGIN
-typedef void (^ZooURLBlock)(NSString *);
-typedef UIImage * _Nullable (^ZooWebpHandleBlock)(NSString *filePath);
 
 typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
     #pragma mark - 常用工具
@@ -109,11 +107,8 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 - (void)hiddenHomeWindow;
 
 #pragma mark - Plugins Configuration
-@property (nonatomic, copy) ZooWebpHandleBlock webpHandleBlock;
 
 - (void)addStartPlugin:(NSString *)pluginName;
-
-- (void)addWebpHandleBlock:(ZooWebpHandleBlock)block;
 
 @property (nonatomic, strong) NSMutableDictionary *keyBlockDic;//保存key和block的关系
 
