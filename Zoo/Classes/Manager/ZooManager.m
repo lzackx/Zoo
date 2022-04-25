@@ -13,10 +13,7 @@
 #import "ZooUtil.h"
 #import "ZooHomeWindow.h"
 #import "ZooHomeWindow.h"
-//#import "ZooANRManager.h"
-//#import "ZooLargeImageDetectionManager.h"
-//#import "ZooNetFlowOscillogramWindow.h"
-//#import "ZooNetFlowManager.h"
+
 //#import "ZooHealthManager.h"
 
 //#if ZooWithGPS
@@ -35,18 +32,12 @@
 
 @end
 
-typedef void (^ZooANRBlock)(NSDictionary *);
-typedef void (^ZooPerformanceBlock)(NSDictionary *);
 
 @interface ZooManager()
 
 @property (nonatomic, strong) ZooEntryWindow *entryWindow;
 
 @property (nonatomic, strong) NSMutableArray *startPlugins;
-
-@property (nonatomic, copy) ZooANRBlock anrBlock;
-
-@property (nonatomic, copy) ZooPerformanceBlock performanceBlock;
 
 @property (nonatomic, assign) BOOL hasInstall;
 
@@ -111,16 +102,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
 
     [self initEntry:self.startingPosition];
     
-//    //根据开关判断是否开启流量监控
-//    if ([[ZooCacheManager sharedInstance] netFlowSwitch]) {
-//        [[ZooNetFlowManager shareInstance] canInterceptNetFlow:YES];
-//        //[[ZooNetFlowOscillogramWindow shareInstance] show];
-//    }
-//
-//    //重新启动的时候，把帧率、CPU、内存和流量监控关闭
-//    [[ZooCacheManager sharedInstance] saveFpsSwitch:NO];
-//    [[ZooCacheManager sharedInstance] saveCpuSwitch:NO];
-//    [[ZooCacheManager sharedInstance] saveMemorySwitch:NO];
 //
 //#if ZooWithGPS
 //    //开启mockGPS功能
@@ -137,17 +118,6 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
 //        [[ZooCocoaLumberjackLogger sharedInstance] startMonitor];
 //    }
 //#endif
-//
-//    [[ZooANRManager sharedInstance] addANRBlock:^(NSDictionary *anrInfo) {
-//        if (self.anrBlock) {
-//            self.anrBlock(anrInfo);
-//        }
-//    }];
-//
-//    //外部设置大图检测的数值
-//    if (_bigImageDetectionSize > 0){
-//        [ZooLargeImageDetectionManager shareInstance].minimumDetectionSize = _bigImageDetectionSize;
-//    }
 //
 //    //开启健康体检
 //    if ([[ZooCacheManager sharedInstance] healthStart]) {
@@ -305,28 +275,12 @@ typedef void (^ZooPerformanceBlock)(NSDictionary *);
      }
 }
 
-- (void)addANRBlock:(void(^)(NSDictionary *anrDic))block{
-    self.anrBlock = block;
-}
-
-- (void)addPerformanceBlock:(void(^)(NSDictionary *performanceDic))block{
-    self.performanceBlock = block;
-}
-
 - (void)addWebpHandleBlock:(UIImage *(^)(NSString *filePath))block{
     self.webpHandleBlock = block;
 }
 
 - (void)hiddenHomeWindow{
     [[ZooHomeWindow shareInstance] hide];
-}
-
-- (void)setStartClass:(NSString *)startClass {
-    [[ZooCacheManager sharedInstance] saveStartClass:startClass];
-}
-
-- (NSString *)startClass{
-    return [[ZooCacheManager sharedInstance] startClass];
 }
 
 - (void)configEntryBtnBlingWithText:(NSString *)text backColor:(UIColor *)backColor {

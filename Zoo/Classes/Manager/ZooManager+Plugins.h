@@ -13,9 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: - Platform
 - (void)addPlatformPlugins;
 
-// MARK: - Performance
-- (void)addPerformancePlugins;
-
 // MARK: - UI
 - (void)addUIPlugins;
 

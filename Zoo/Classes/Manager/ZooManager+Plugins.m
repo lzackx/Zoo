@@ -24,23 +24,6 @@
 #endif
 }
 
-#pragma mark - Performance
-- (void)addPerformancePlugins {
-#if ZooWithPerformance
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooFPSPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooCPUPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooMemoryPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooNetFlowPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooSubThreadUICheckPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooANRPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooLargeImageFilter];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooWeakNetworkPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooStartTimePlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooUIProfilePlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooTimeProfilePlugin];
-#endif
-}
-
 #pragma mark - UI
 - (void)addUIPlugins {
 #if ZooWithUI
@@ -95,62 +78,7 @@
 //                                   ],
 //
 //                           // 性能检测
-//                           @(ZooManagerPluginType_ZooFPSPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"帧率")},
-//                                   @{kDesc:ZooLocalizedString(@"帧率")},
-//                                   @{kIcon:@"zoo_fps"},
-//                                   @{kPluginName:@"ZooFPSPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooCPUPlugin) : @[
-//                                   @{kTitle:@"CPU"},
-//                                   @{kDesc:ZooLocalizedString(@"CPU")},
-//                                   @{kIcon:@"zoo_cpu"},
-//                                   @{kPluginName:@"ZooCPUPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooMemoryPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"内存")},
-//                                   @{kDesc:ZooLocalizedString(@"内存")},
-//                                   @{kIcon:@"zoo_memory"},
-//                                   @{kPluginName:@"ZooMemoryPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooNetFlowPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"网络")},
-//                                   @{kDesc:ZooLocalizedString(@"网络监控")},
-//                                   @{kIcon:@"zoo_net"},
-//                                   @{kPluginName:@"ZooNetFlowPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooSubThreadUICheckPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"子线程UI")},
-//                                   @{kDesc:ZooLocalizedString(@"子线程UI")},
-//                                   @{kIcon:@"zoo_ui"},
-//                                   @{kPluginName:@"ZooSubThreadUICheckPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooANRPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"卡顿")},
-//                                   @{kDesc:ZooLocalizedString(@"卡顿")},
-//                                   @{kIcon:@"zoo_kadun"},
-//                                   @{kPluginName:@"ZooANRPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooLargeImageFilter) : @[
-//                                   @{kTitle:ZooLocalizedString(@"大图检测")},
-//                                   @{kDesc:ZooLocalizedString(@"大图检测")},
-//                                   @{kIcon:@"zoo_net"},
-//                                   @{kPluginName:@"ZooLargeImagePlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooStartTimePlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"启动耗时")},
-//                                   @{kDesc:ZooLocalizedString(@"启动耗时")},
-//                                   @{kIcon:@"zoo_app_start_time"},
-//                                   @{kPluginName:@"ZooStartTimePlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
+
 //                           @(ZooManagerPluginType_ZooMemoryLeakPlugin) : @[
 //                                   @{kTitle:ZooLocalizedString(@"内存泄漏")},
 //                                   @{kDesc:ZooLocalizedString(@"内存泄漏统计")},
@@ -158,27 +86,6 @@
 //                                   @{kPluginName:@"ZooMLeaksFinderPlugin"},
 //                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
 //                                   ],
-//                           @(ZooManagerPluginType_ZooUIProfilePlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"UI层级")},
-//                                   @{kDesc:ZooLocalizedString(@"UI层级s")},
-//                                   @{kIcon:@"zoo_view_level"},
-//                                   @{kPluginName:@"ZooUIProfilePlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                           ],
-//                           @(ZooManagerPluginType_ZooTimeProfilePlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"函数耗时")},
-//                                   @{kDesc:ZooLocalizedString(@"函数耗时统计")},
-//                                   @{kIcon:@"zoo_time_profiler"},
-//                                   @{kPluginName:@"ZooTimeProfilerPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                           ],
-//                           @(ZooManagerPluginType_ZooWeakNetworkPlugin) : @[
-//                                     @{kTitle:ZooLocalizedString(@"模拟弱网")},
-//                                     @{kDesc:ZooLocalizedString(@"模拟弱网测试")},
-//                                     @{kIcon:@"zoo_weaknet"},
-//                                     @{kPluginName:@"ZooWeakNetworkPlugin"},
-//                                     @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                             ],
 //                           // 视觉工具
 //                           @(ZooManagerPluginType_ZooColorPickPlugin) : @[
 //                                   @{kTitle:ZooLocalizedString(@"取色器")},

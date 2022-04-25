@@ -12,16 +12,6 @@
 
 static NSString * const kZooMockGPSSwitchKey = @"zoo_mock_gps_key";
 static NSString * const kZooMockCoordinateKey = @"zoo_mock_coordinate_key";
-static NSString * const kZooFpsKey = @"zoo_fps_key";
-static NSString * const kZooCpuKey = @"zoo_cpu_key";
-static NSString * const kZooMemoryKey = @"zoo_memory_key";
-static NSString * const kZooNetFlowKey = @"zoo_netflow_key";
-static NSString * const kZooSubThreadUICheckKey = @"zoo_sub_thread_ui_check_key";
-static NSString * const kZooMethodUseTimeKey = @"zoo_method_use_time_key";
-static NSString * const kZooLargeImageDetectionKey = @"zoo_large_image_detection_key";
-static NSString * const kZooStartTimeKey = @"zoo_start_time_key";
-static NSString * const kZooStartClassKey = @"zoo_start_class_key";
-static NSString * const kZooANRTrackKey = @"zoo_anr_track_key";
 static NSString * const kZooMemoryLeakKey = @"zoo_memory_leak_key";
 static NSString * const kZooMemoryLeakAlertKey = @"zoo_memory_leak_alert_key";
 static NSString * const kZooAllTestKey = @"zoo_allTest_window_key";
@@ -91,40 +81,28 @@ static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
     return coordinate;
 }
 
-- (void)saveFpsSwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooFpsKey];
-    [_defaults synchronize];
+// 内存泄漏开关
+- (void)saveMemoryLeak:(BOOL)on{
+    [[NSUserDefaults standardUserDefaults] setBool:on forKey:kZooMemoryLeakKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (BOOL)memoryLeak{
+    if (_firstReadMemoryLeakOn) {
+        return _memoryLeakOn;
+    }
+    _firstReadMemoryLeakOn = YES;
+    _memoryLeakOn = [[NSUserDefaults standardUserDefaults] boolForKey:kZooMemoryLeakKey];
+     
+    return _memoryLeakOn;
 }
 
-- (BOOL)fpsSwitch{
-    return [_defaults boolForKey:kZooFpsKey];
+// 内存泄漏弹框开关
+- (void)saveMemoryLeakAlert:(BOOL)on{
+    [[NSUserDefaults standardUserDefaults] setBool:on forKey:kZooMemoryLeakAlertKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
-- (void)saveCpuSwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooCpuKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)cpuSwitch{
-    return [_defaults boolForKey:kZooCpuKey];
-}
-
-- (void)saveMemorySwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooMemoryKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)memorySwitch{
-    return [_defaults boolForKey:kZooMemoryKey];
-}
-
-- (void)saveNetFlowSwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooNetFlowKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)netFlowSwitch{
-    return [_defaults boolForKey:kZooNetFlowKey];
+- (BOOL)memoryLeakAlert{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kZooMemoryLeakAlertKey];
 }
 
 - (void)saveAllTestSwitch:(BOOL)on{
@@ -134,85 +112,6 @@ static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
 
 - (BOOL)allTestSwitch{
     return [_defaults boolForKey:kZooAllTestKey];
-}
-
-- (void)saveLargeImageDetectionSwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooLargeImageDetectionKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)largeImageDetectionSwitch{
-    return [_defaults boolForKey: kZooLargeImageDetectionKey];
-}
-
-- (void)saveSubThreadUICheckSwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooSubThreadUICheckKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)subThreadUICheckSwitch{
-    return [_defaults boolForKey:kZooSubThreadUICheckKey];
-}
-
-- (void)saveMethodUseTimeSwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooMethodUseTimeKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)methodUseTimeSwitch{
-    return [_defaults boolForKey:kZooMethodUseTimeKey];
-}
-
-- (void)saveStartTimeSwitch:(BOOL)on {
-    [_defaults setBool:on forKey:kZooStartTimeKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)startTimeSwitch{
-    return [_defaults boolForKey:kZooStartTimeKey];
-}
-
-- (void)saveANRTrackSwitch:(BOOL)on {
-    [_defaults setBool:on forKey:kZooANRTrackKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)anrTrackSwitch {
-    return [_defaults boolForKey:kZooANRTrackKey];
-}
-
-- (void)saveStartClass : (NSString *)startClass {
-    [_defaults setObject:startClass forKey:kZooStartClassKey];
-    [_defaults synchronize];
-}
-
-- (NSString *)startClass {
-    NSString *startClass = [_defaults objectForKey:kZooStartClassKey];
-    return startClass;
-}
-
-// 内存泄漏开关
-- (void)saveMemoryLeak:(BOOL)on{
-    [_defaults setBool:on forKey:kZooMemoryLeakKey];
-    [_defaults synchronize];
-}
-- (BOOL)memoryLeak{
-    if (_firstReadMemoryLeakOn) {
-        return _memoryLeakOn;
-    }
-    _firstReadMemoryLeakOn = YES;
-    _memoryLeakOn = [_defaults boolForKey:kZooMemoryLeakKey];
-     
-    return _memoryLeakOn;
-}
-
-// 内存泄漏弹框开关
-- (void)saveMemoryLeakAlert:(BOOL)on{
-    [_defaults setBool:on forKey:kZooMemoryLeakAlertKey];
-    [_defaults synchronize];
-}
-- (BOOL)memoryLeakAlert{
-    return [_defaults boolForKey:kZooMemoryLeakAlertKey];
 }
 
 // mockapi本地缓存情况

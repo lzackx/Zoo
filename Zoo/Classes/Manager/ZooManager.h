@@ -22,30 +22,8 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
     ZooManagerPluginType_ZooCocoaLumberjackPlugin,
     
     #pragma mark - 性能检测
-    // 帧率监控
-    ZooManagerPluginType_ZooFPSPlugin,
-    // CPU监控
-    ZooManagerPluginType_ZooCPUPlugin,
-    // 内存监控
-    ZooManagerPluginType_ZooMemoryPlugin,
-    // 流量监控
-    ZooManagerPluginType_ZooNetFlowPlugin,
-    // 卡顿检测
-    ZooManagerPluginType_ZooANRPlugin,
-    // 大图检测
-    ZooManagerPluginType_ZooLargeImageFilter,
-    // 启动耗时
-    ZooManagerPluginType_ZooStartTimePlugin,
     // 内存泄漏
     ZooManagerPluginType_ZooMemoryLeakPlugin,
-    // UI层级检查
-    ZooManagerPluginType_ZooUIProfilePlugin,
-    // UI结构调整
-    ZooManagerPluginType_ZooHierarchyPlugin,
-    // 函数耗时
-    ZooManagerPluginType_ZooTimeProfilePlugin,
-    // 模拟弱网
-    ZooManagerPluginType_ZooWeakNetworkPlugin,
     
     #pragma mark - 视觉工具
     // 颜色吸管
@@ -121,7 +99,7 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 - (void)configEntryBtnBlingWithText:(nullable NSString *)text backColor:(nullable UIColor *)backColor;
 
 
-#pragma mark - Show / Hidden
+#pragma mark - Show / Hidden/
 - (BOOL)isShowZoo;
 
 - (void)showZoo;
@@ -135,15 +113,9 @@ typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
 
 - (void)addStartPlugin:(NSString *)pluginName;
 
-- (void)addANRBlock:(void(^)(NSDictionary *anrDic))block;
-
-- (void)addPerformanceBlock:(void(^)(NSDictionary *performanceDic))block;
-
 - (void)addWebpHandleBlock:(ZooWebpHandleBlock)block;
 
 @property (nonatomic, assign) int64_t bigImageDetectionSize; // 外部设置大图检测的监控数值  比如监控所有图片大于50K的图片 那么这个值就设置为 50 * 1024；
-
-@property (nonatomic, copy) NSString *startClass; //如果你的启动代理不是默认的AppDelegate,需要传入才能获取正确的启动时间
 
 @property (nonatomic, copy) NSArray *vcProfilerBlackList;//使用vcProfiler的使用，兼容一些异常情况，比如issue416
 
