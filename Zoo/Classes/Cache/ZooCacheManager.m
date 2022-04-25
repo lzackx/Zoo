@@ -9,8 +9,6 @@
 #import "ZooDefine.h"
 
 
-static NSString * const kZooMockGPSSwitchKey = @"zoo_mock_gps_key";
-static NSString * const kZooMockCoordinateKey = @"zoo_mock_coordinate_key";
 static NSString * const kZooMemoryLeakKey = @"zoo_memory_leak_key";
 static NSString * const kZooMemoryLeakAlertKey = @"zoo_memory_leak_alert_key";
 static NSString * const kZooAllTestKey = @"zoo_allTest_window_key";
@@ -43,41 +41,6 @@ static NSString * const kZooHealthStartKey = @"zoo_health_start_key";
         _defaults = [NSUserDefaults standardUserDefaults];
     }
     return self;
-}
-
-- (void)saveMockGPSSwitch:(BOOL)on{
-    [_defaults setBool:on forKey:kZooMockGPSSwitchKey];
-    [_defaults synchronize];
-}
-
-- (BOOL)mockGPSSwitch{
-    return [_defaults boolForKey:kZooMockGPSSwitchKey];
-}
-
-- (void)saveMockCoordinate:(CLLocationCoordinate2D)coordinate{
-    NSDictionary *dic = @{
-                          @"longitude":@(coordinate.longitude),
-                          @"latitude":@(coordinate.latitude)
-                          };
-    [_defaults setObject:dic forKey:kZooMockCoordinateKey];
-    [_defaults synchronize];
-}
-
-- (CLLocationCoordinate2D)mockCoordinate{
-    NSDictionary *dic = [_defaults valueForKey:kZooMockCoordinateKey];
-    CLLocationCoordinate2D coordinate ;
-    if (dic[@"longitude"]) {
-        coordinate.longitude = [dic[@"longitude"] doubleValue];
-    }else{
-        coordinate.longitude = 0.;
-    }
-    if (dic[@"latitude"]) {
-        coordinate.latitude = [dic[@"latitude"] doubleValue];
-    }else{
-        coordinate.latitude = 0.;
-    }
-    
-    return coordinate;
 }
 
 // 内存泄漏开关

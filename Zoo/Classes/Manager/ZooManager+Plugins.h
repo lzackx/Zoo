@@ -13,12 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: - Platform
 - (void)addPlatformPlugins;
 
-// MARK: - UI
-- (void)addUIPlugins;
-
-// MARK: - GPS
-- (void)addGPSPlugins;
-
 // MARK: - Logger
 - (void)addLoggerPlugins;
 

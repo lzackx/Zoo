@@ -11,27 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, ZooManagerPluginType) {
-    #pragma mark - 常用工具
-    // MockGPS
-    ZooManagerPluginType_ZooGPSPlugin,
-    // 子线程UI
-    ZooManagerPluginType_ZooSubThreadUICheckPlugin,
     // 日志显示
     ZooManagerPluginType_ZooCocoaLumberjackPlugin,
     
     #pragma mark - 性能检测
     // 内存泄漏
     ZooManagerPluginType_ZooMemoryLeakPlugin,
-    
-    #pragma mark - 视觉工具
-    // 颜色吸管
-    ZooManagerPluginType_ZooColorPickPlugin,
-    // 组件检查
-    ZooManagerPluginType_ZooViewCheckPlugin,
-    // 对齐标尺
-    ZooManagerPluginType_ZooViewAlignPlugin,
-    // 元素边框线
-    ZooManagerPluginType_ZooViewMetricsPlugin,
     
     #pragma mark - 聚合工具
     ZooManagerPluginType_ZooHealthPlugin

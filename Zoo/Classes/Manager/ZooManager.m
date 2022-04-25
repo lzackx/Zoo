@@ -16,10 +16,6 @@
 
 //#import "ZooHealthManager.h"
 
-//#if ZooWithGPS
-//#import "ZooGPSMocker.h"
-//#endif
-
 
 //#if ZooWithLogger
 //#import "ZooCocoaLumberjackLogger.h"
@@ -102,15 +98,6 @@
 
     [self initEntry:self.startingPosition];
     
-//
-//#if ZooWithGPS
-//    //开启mockGPS功能
-//    if ([[ZooCacheManager sharedInstance] mockGPSSwitch]) {
-//        CLLocationCoordinate2D coordinate = [[ZooCacheManager sharedInstance] mockCoordinate];
-//        CLLocation *loc = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-//        [[ZooGPSMocker shareInstance] mockPoint:loc];
-//    }
-//#endif
 
 //#if ZooWithLogger
 //    //开启CocoaLumberjack监控

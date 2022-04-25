@@ -24,24 +24,6 @@
 #endif
 }
 
-#pragma mark - UI
-- (void)addUIPlugins {
-#if ZooWithUI
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooColorPickPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooViewCheckPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooViewAlignPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooViewMetricsPlugin];
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooHierarchyPlugin];
-#endif
-}
-
-// MARK: - GPS
-- (void)addGPSPlugins {
-#if ZooWithGPS
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooGPSPlugin];
-#endif
-}
-
 // MARK: - Logger
 - (void)addLoggerPlugins {
 #if ZooWithLogger
@@ -69,58 +51,20 @@
 //
 //- (ZooManagerPluginTypeModel *)getDefaultPluginDataWithPluginType:(ZooManagerPluginType)pluginType {
 //    NSArray *dataArray = @{
-//                           @(ZooManagerPluginType_ZooGPSPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"Mock GPS")},
-//                                   @{kDesc:ZooLocalizedString(@"Mock GPS")},
-//                                   @{kIcon:@"zoo_mock_gps"},
-//                                   @{kPluginName:@"ZooGPSPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"General")}
+//@[
+//                                   @{kTitle:@"Lumberjack"},
+//                                   @{kDesc:ZooLocalizedString(@"Lumberjack")},
+//                                   @{kIcon:@"zoo_log"},
+//                                   @{kPluginName:@"ZooCocoaLumberjackPlugin"},
+//                                   @{kAtModule:ZooLocalizedString(@"General")},
 //                                   ],
-//
 //                           // 性能检测
-
 //                           @(ZooManagerPluginType_ZooMemoryLeakPlugin) : @[
 //                                   @{kTitle:ZooLocalizedString(@"内存泄漏")},
 //                                   @{kDesc:ZooLocalizedString(@"内存泄漏统计")},
 //                                   @{kIcon:@"zoo_memory_leak"},
 //                                   @{kPluginName:@"ZooMLeaksFinderPlugin"},
 //                                   @{kAtModule:ZooLocalizedString(@"性能检测")}
-//                                   ],
-//                           // 视觉工具
-//                           @(ZooManagerPluginType_ZooColorPickPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"取色器")},
-//                                   @{kDesc:ZooLocalizedString(@"取色器")},
-//                                   @{kIcon:@"zoo_straw"},
-//                                   @{kPluginName:@"ZooColorPickPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"视觉工具")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooViewCheckPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"组件检查")},
-//                                   @{kDesc:ZooLocalizedString(@"组件检查")},
-//                                   @{kIcon:@"zoo_view_check"},
-//                                   @{kPluginName:@"ZooViewCheckPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"视觉工具")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooViewAlignPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"对齐标尺")},
-//                                   @{kDesc:ZooLocalizedString(@"对齐标尺")},
-//                                   @{kIcon:@"zoo_align"},
-//                                   @{kPluginName:@"ZooViewAlignPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"视觉工具")}
-//                                   ],
-//                           @(ZooManagerPluginType_ZooViewMetricsPlugin) : @[
-//                                   @{kTitle:ZooLocalizedString(@"布局边框")},
-//                                   @{kDesc:ZooLocalizedString(@"布局边框")},
-//                                   @{kIcon:@"zoo_viewmetrics"},
-//                                   @{kPluginName:@"ZooViewMetricsPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"视觉工具")}
-//                                   ],
-//                          @(ZooManagerPluginType_ZooHierarchyPlugin) : @[
-//                                           @{kTitle:ZooLocalizedString(@"UI结构")},
-//                                           @{kDesc:ZooLocalizedString(@"显示UI结构")},
-//                                           @{kIcon:@"zoo_view_level"},
-//                                           @{kPluginName:@"ZooHierarchyPlugin"},
-//                                           @{kAtModule:ZooLocalizedString(@"视觉工具")}
 //                                   ],
 //                           // 聚合工具
 //                           @(ZooManagerPluginType_ZooHealthPlugin) : @[

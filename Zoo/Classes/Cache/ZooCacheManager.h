@@ -5,19 +5,10 @@
 //  Created by lZackx on 2022/4/14.
 
 #import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
 
 @interface ZooCacheManager : NSObject
 
 + (ZooCacheManager *)sharedInstance;
-
-- (void)saveMockGPSSwitch:(BOOL)on;
-
-- (BOOL)mockGPSSwitch;
-
-- (void)saveMockCoordinate:(CLLocationCoordinate2D)coordinate;
-
-- (CLLocationCoordinate2D)mockCoordinate;
 
 // 内存泄漏开关
 - (void)saveMemoryLeak:(BOOL)on;
