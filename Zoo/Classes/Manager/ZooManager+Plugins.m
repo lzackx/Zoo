@@ -24,13 +24,6 @@
 #endif
 }
 
-// MARK: - Logger
-- (void)addLoggerPlugins {
-#if ZooWithLogger
-    [self addPluginWithPluginType:ZooManagerPluginType_ZooCocoaLumberjackPlugin];
-#endif
-}
-
 // MARK: - MemoryLeak
 - (void)addMemoryLeakPlugins {
 #if ZooWithMLeaksFinder
@@ -51,13 +44,6 @@
 //
 //- (ZooManagerPluginTypeModel *)getDefaultPluginDataWithPluginType:(ZooManagerPluginType)pluginType {
 //    NSArray *dataArray = @{
-//@[
-//                                   @{kTitle:@"Lumberjack"},
-//                                   @{kDesc:ZooLocalizedString(@"Lumberjack")},
-//                                   @{kIcon:@"zoo_log"},
-//                                   @{kPluginName:@"ZooCocoaLumberjackPlugin"},
-//                                   @{kAtModule:ZooLocalizedString(@"General")},
-//                                   ],
 //                           // 性能检测
 //                           @(ZooManagerPluginType_ZooMemoryLeakPlugin) : @[
 //                                   @{kTitle:ZooLocalizedString(@"内存泄漏")},

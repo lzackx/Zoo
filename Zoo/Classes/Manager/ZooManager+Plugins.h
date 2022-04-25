@@ -13,9 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: - Platform
 - (void)addPlatformPlugins;
 
-// MARK: - Logger
-- (void)addLoggerPlugins;
-
 // MARK: - MemoryLeak
 - (void)addMemoryLeakPlugins;
 

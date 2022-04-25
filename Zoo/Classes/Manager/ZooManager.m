@@ -17,13 +17,6 @@
 //#import "ZooHealthManager.h"
 
 
-//#if ZooWithLogger
-//#import "ZooCocoaLumberjackLogger.h"
-//#import "ZooCocoaLumberjackViewController.h"
-//#import "ZooCocoaLumberjackListViewController.h"
-//#endif
-
-
 @implementation ZooManagerPluginTypeModel
 
 @end
@@ -99,13 +92,6 @@
     [self initEntry:self.startingPosition];
     
 
-//#if ZooWithLogger
-//    //开启CocoaLumberjack监控
-//    if ([[ZooCacheManager sharedInstance] loggerSwitch]) {
-//        [[ZooCocoaLumberjackLogger sharedInstance] startMonitor];
-//    }
-//#endif
-//
 //    //开启健康体检
 //    if ([[ZooCacheManager sharedInstance] healthStart]) {
 //        [[ZooHealthManager sharedInstance] startHealthCheck];
