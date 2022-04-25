@@ -37,7 +37,7 @@ static NSString *ZooHomeCloseCellID = @"ZooHomeCloseCellID";
     [super viewDidLoad];
     self.title = @"Zoo";
     [self setLeftNavBarItems:nil];
-    [self setRightNavTitle:ZooLocalizedString(@"设置")];
+//    [self setRightNavTitle:ZooLocalizedString(@"设置")];
     
     
 #if defined(__IPHONE_13_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0)

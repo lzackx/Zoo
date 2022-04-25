@@ -9,7 +9,6 @@
 #import "ZooDefine.h"
 
 
-
 static NSString * const kZooMockGPSSwitchKey = @"zoo_mock_gps_key";
 static NSString * const kZooMockCoordinateKey = @"zoo_mock_coordinate_key";
 static NSString * const kZooMemoryLeakKey = @"zoo_memory_leak_key";
