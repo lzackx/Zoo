@@ -108,7 +108,6 @@
     [_startPlugins addObject:pluginName];
 }
 
-// out 1
 - (void)addPluginWithTitle:(NSString *)title icon:(NSString *)iconName desc:(NSString *)desc pluginName:(NSString *)entryName atModule:(NSString *)moduleName{
     
     NSMutableDictionary *pluginDic = [self foundGroupWithModule:moduleName];
@@ -120,7 +119,6 @@
     pluginDic[@"show"] = @1;
 }
 
-// out 2
 - (void)addPluginWithTitle:(NSString *)title
                       icon:(NSString *)iconName
                       desc:(NSString *)desc

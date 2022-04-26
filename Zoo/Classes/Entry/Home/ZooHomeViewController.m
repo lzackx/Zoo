@@ -16,7 +16,6 @@
 #import "ZooHomeFootCell.h"
 #import "ZooHomeCloseCell.h"
 #import "UIViewController+Zoo.h"
-#import "ZooSettingViewController.h"
 #import "ZooCacheManager.h"
 
 static NSString *ZooHomeCellID = @"ZooHomeCellID";
@@ -49,7 +48,7 @@ static NSString *ZooHomeCloseCellID = @"ZooHomeCloseCellID";
 #if defined(__IPHONE_13_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0)
     }
 #endif
-    NSMutableArray *dataArray = [[ZooCacheManager sharedInstance] allKitShowManagerData];
+    NSMutableArray *dataArray = [ZooManager shareInstance].dataArray;
     _dataArray = dataArray;
     [self.view addSubview:self.collectionView];
     
@@ -63,12 +62,10 @@ static NSString *ZooHomeCloseCellID = @"ZooHomeCloseCellID";
 }
 
 - (void)rightNavTitleClick:(id)clickView{
-    ZooSettingViewController *vc = [[ZooSettingViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)kitManagerUpdate:(NSNotification *)aNotification {
-    _dataArray = [[ZooCacheManager sharedInstance] allKitShowManagerData];
+    _dataArray = [ZooManager shareInstance].dataArray;
     [self.collectionView reloadData];
 }
 

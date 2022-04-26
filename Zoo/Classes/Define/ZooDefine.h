@@ -17,7 +17,7 @@
 #import "ZooAlertUtil.h"
 #import "ZooUtil.h"
 
-#define ZooVersion @"1.0.0"
+#define ZooVersion [[[NSBundle bundleForClass:[ZooManager class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define ZooKbChange(x) x * 1000
 
 #ifdef Zoo_OpenLog
