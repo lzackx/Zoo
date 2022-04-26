@@ -95,7 +95,6 @@
  */
 - (void)initEntry:(CGPoint) startingPosition{
     _entryWindow = [[ZooEntryWindow alloc] initWithStartPoint:startingPosition];
-    [_entryWindow show];
     if(_autoDock){
         [_entryWindow setAutoDock:YES];
     }

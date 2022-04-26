@@ -88,7 +88,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.windowLevel = UIWindowLevelStatusBar + 100.f;
         self.layer.masksToBounds = YES;
-        
+        self.hidden = YES;
         // 统一使用 ZooStatusBarViewController
         // 对系统的版本处理放入 ZooStatusBarViewController 类中
         if (!self.rootViewController) {
@@ -101,10 +101,6 @@
         [self addGestureRecognizer:pan];
     }
     return self;
-}
-
-- (void)show{
-    self.hidden = NO;
 }
 
 - (void)showClose:(NSNotification *)notification{

@@ -15,6 +15,7 @@
 {
     // Override point for customization after application launch.
     [[ZooManager shareInstance] install];
+    [[ZooManager shareInstance] showZoo];
     return YES;
 }
 
